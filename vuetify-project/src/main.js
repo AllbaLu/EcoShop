@@ -17,6 +17,8 @@ import Card_blog from './components/BlogPost.vue'
 
 // Styles
 import 'unfonts.css'
+import 'vuetify/styles'
+import '@/style.css'
 
 const app = createApp(App)
 

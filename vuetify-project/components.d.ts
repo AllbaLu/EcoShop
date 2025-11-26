@@ -19,5 +19,11 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SiteFooter: typeof import('./src/components/SiteFooter.vue')['default']
+    Footer: typeof import('./src/components/Footer.vue')['default']
+    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    Hero: typeof import('./src/components/Hero.vue')['default']
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
+    SearchBar: typeof import('./src/components/SearchBar.vue')['default']
   }
 }
