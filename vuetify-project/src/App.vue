@@ -2,6 +2,8 @@
   import Navbar from './components/Navbar.vue'
   import SiteFooter from './components/SiteFooter.vue'
   import BlogPost from './components/BlogPost.vue';
+  import { router } from './router/index.js';
+  
 </script>
 
 <template>
@@ -9,7 +11,6 @@
     <Navbar />
     <v-main>
       <router-view />
-      <BlogPost />
     </v-main>
     <SiteFooter />
   </v-app>

@@ -6,12 +6,12 @@ import { ref } from 'vue';
 
 <template>
 
-<v-app-bar app>
-  <v-toolbar-title>&lt;BLOG_SECTION&gt;</v-toolbar-title>
+<v-app-bar app color="white" dark>
+  <v-toolbar-title>&lt;ECO_SHOP&gt; &lt;En prueba aún&gt;</v-toolbar-title>
   <v-spacer />
-  <v-btn text class="bg-white">Inicio</v-btn>
-  <v-btn text class="bg-white">Sellos</v-btn>
-  <v-btn text class="bg-white">Blog</v-btn>
+  <v-btn text class="bg-white" :to="{ name: 'homeview' }">Inicio</v-btn>
+  <v-btn text class="bg-white" :to="{ name: 'sellosview' }">Sellos</v-btn>
+  <v-btn text class="bg-white" :to="{ name: 'blogview' }">Blog</v-btn>
   <v-btn text class="bg-white">Catálogo Productos</v-btn>
   <v-btn text class="bg-white">Contacto</v-btn>
   <v-btn text class="bg-white">Carrito</v-btn>

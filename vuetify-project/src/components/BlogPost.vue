@@ -6,6 +6,8 @@ const noticias = {
   bodyText: `Aquí va el contenido principal del blog post. Puedes escribir varios párrafos para desarrollar el tema en profundidad. 
   Asegúrate de incluir información relevante y atractiva para mantener el interés de los lectores.`
 };
+
+
 </script>
 
 

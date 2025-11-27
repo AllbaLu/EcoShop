@@ -14,8 +14,9 @@ const slides = [
     'Fifth',
 ]
 </script>
-
 <template>
+<section class="hero"> 
+
     <v-container>
         <v-carousel height="400" show-arrows="hover" cycle hide-delimiter-background>
             <v-carousel-item v-for="(slide, i) in slides" :key="i">
@@ -24,9 +25,10 @@ const slides = [
                         <div class="text-h2">
                             {{ slide }} Slide
                         </div>
-                    </div>
-                </v-sheet>
-            </v-carousel-item>
-        </v-carousel>
-    </v-container>
+                        </div>
+                    </v-sheet>
+                </v-carousel-item>
+            </v-carousel>
+        </v-container>
+</section>
 </template>
