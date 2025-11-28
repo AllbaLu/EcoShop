@@ -11,6 +11,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+<<<<<<< HEAD
     AppFooter: typeof import('./src/components/AppFooter.vue')['default']
     BlogPost: typeof import('./src/components/BlogPost.vue')['default']
     Card_blog: typeof import('./src/components/BlogPost.vue')['default']
@@ -25,5 +26,10 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SearchBar: typeof import('./src/components/SearchBar.vue')['default']
+=======
+    ProductSection: typeof import('./src/components/ProductSection.vue')['default']
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
+>>>>>>> Tiziano
   }
 }
