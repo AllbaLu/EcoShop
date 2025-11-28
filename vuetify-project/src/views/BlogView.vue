@@ -10,6 +10,8 @@ import Navbar from '@/components/Navbar.vue';
 <template>
   <v-container>
     <h1>Blog View</h1>
+    <BlogPost />
+    <BlogPost />
   </v-container>
 </template>
 
