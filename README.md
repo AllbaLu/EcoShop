@@ -27,6 +27,133 @@ Lista breve de funcionalidades o alcances clave.
 Explica cómo está organizado (carpetas principales, módulos, etc.).
 Útil para que otros entiendan dónde está cada cosa.
 
+#### Arquitectura General: Backend + Frontend + Base de Datos
+
+#### Frontend:
+- Vite + Vue
+- Vuetify
+- UI
+- Lógica de presentación
+
+#### Backend:
+- Python
+- Flask Bases de Datos
+- PostgreSQL
+- Relaciones
+
+#### Paleta de colores:
+- #F1FFFF
+- #C8E8FF
+- #E6EB51
+- #375A0A
+- #010101
+
+
+1. Estructura de Carpetas Recomendada
+
+   - backend/ ├── src/ │ ├── models/ │ ├── routes/ │ ├── middlewares/ │ └── app.js ├── config/ ├── tests/ ├── package.json
+   - frontend/ ├── src/ │ ├── components/ │ ├── pages/ │ ├── hooks/ │ ├── context/ │ └── App.jsx ├── public/ ├── package.json
+
+2. Componentes
+   - Footer.vue
+   - Hero.vue
+   - Navbar.vue
+   - SearchBar.vue
+   - Sellos.vue
+
+3. Vistas
+   - HomeView: Navbar / Hero / SearchBar ---- PENDIENTE --- / Footer
+   - BlogView: Navbar /  ---- PENDIENTE --- / Footer
+   - SelloView: Navbar /  Sellos / ---- PENDIENTE --- / Footer
+
+
+
+## REFERENCIA DE LO QUE HAY QUE HACER -->
+
+Navbar / Header
+
+User
+
+Adm
+
+Login
+
+Logout
+
+Section – Buscador
+
+Buscador: [Título] [Guardar]
+
+Filtros inteligentes
+
+Carrusel – Información destacada
+
+Section – Catálogo de productos
+
+Cards (por producto):
+
+Materiales
+
+Origen
+
+Emisiones
+
+Eco-badges
+
+Sistema de recomendaciones
+
+Section – Sello
+
+Logos
+
+Marcas
+
+Etiquetas
+
+Blog
+
+Historias
+
+Contenido educativo
+
+Certificaciones
+
+Footer
+
+Redes sociales
+
+Logo
+
+Links relacionados
+
+Adicional
+
+Carrito de compra
+
+Pasarela de pago
+
+Módulo de cálculo de huella de carbono
+
+Reportes: ahorro de carbono por compra
+
+Panel Administrador
+
+Agregar nuevo producto (formulario)
+
+Actualizar precios
+
+Actualizar imágenes
+
+Actualizar links
+
+Borrar producto(s)
+
+## <-- REFERENCIA DE LO QUE HAY QUE HACER
+
+
+
+
+
 ## Instalación / Configuración
 
 Paso a paso para:
