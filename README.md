@@ -1,41 +1,160 @@
-# EcoShop
-E-commerce Platform
+# EcoShop E-commerce Platform
+Plataforma web de comercio electrónico sostenible
+
+## Descripción general
+
+Plataforma de e-commerce sostenible que integra indicadores de impacto ambiental por producto (huella de carbono, materiales reciclables, transporte, etc.), fomenta la trazabilidad y ofrece una experiencia de usuario fluida y moderna.
+
+Está hecha para aquellas marcas sostenibles que buscan plataformas de e-commerce que no solo vendan productos, sino que también midan, visualicen y comuniquen el impacto ambiental de cada compra.
+
+EcoShop E-commerce Platform es una tienda online ecológica, con un enfoque educativo y transparente, que busca fortalecer la confianza de los consumidores y promover decisiones de compra responsables.
 
 
-1️⃣ Título del proyecto
+## Estado del proyecto
 
-Nombre del proyecto y una frase corta que lo describa.
+En desarrollo
 
-2️⃣ Descripción general
+Última actualización: 27 de noviembre de 2025
 
-Un resumen claro de:
+Versión: 0.0
 
-Qué hace el proyecto
-
-Para quién está hecho
-
-Problema que resuelve
-
-3️⃣ Estado del proyecto
-
-Opcional, pero útil:
-
-En desarrollo / En producción
-
-Última actualización
-
-Versión
-
-4️⃣ Características principales
+## Características principales
 
 Lista breve de funcionalidades o alcances clave.
 
-5️⃣ Estructura del proyecto
+## Estructura del proyecto
 
 Explica cómo está organizado (carpetas principales, módulos, etc.).
 Útil para que otros entiendan dónde está cada cosa.
 
-6️⃣ Instalación / Configuración
+#### Arquitectura General: Backend + Frontend + Base de Datos
+
+#### Frontend:
+- Vite + Vue
+- Vuetify
+- UI
+- Lógica de presentación
+
+#### Backend:
+- Python
+- Flask Bases de Datos
+- PostgreSQL
+- Relaciones
+
+#### Paleta de colores:
+- #F1FFFF
+- #C8E8FF
+- #E6EB51
+- #375A0A
+- #010101
+
+
+1. Estructura de Carpetas Recomendada
+
+   - backend/ ├── src/ │ ├── models/ │ ├── routes/ │ ├── middlewares/ │ └── app.js ├── config/ ├── tests/ ├── package.json
+   - frontend/ ├── src/ │ ├── components/ │ ├── pages/ │ ├── hooks/ │ ├── context/ │ └── App.jsx ├── public/ ├── package.json
+
+2. Componentes
+   - Footer.vue
+   - Hero.vue
+   - Navbar.vue
+   - SearchBar.vue
+   - Sellos.vue
+
+3. Vistas
+   - HomeView: Navbar / Hero / SearchBar ---- PENDIENTE --- / Footer
+   - BlogView: Navbar /  ---- PENDIENTE --- / Footer
+   - SelloView: Navbar /  Sellos / ---- PENDIENTE --- / Footer
+
+
+
+## REFERENCIA DE LO QUE HAY QUE HACER -->
+
+Navbar / Header
+
+User
+
+Adm
+
+Login
+
+Logout
+
+Section – Buscador
+
+Buscador: [Título] [Guardar]
+
+Filtros inteligentes
+
+Carrusel – Información destacada
+
+Section – Catálogo de productos
+
+Cards (por producto):
+
+Materiales
+
+Origen
+
+Emisiones
+
+Eco-badges
+
+Sistema de recomendaciones
+
+Section – Sello
+
+Logos
+
+Marcas
+
+Etiquetas
+
+Blog
+
+Historias
+
+Contenido educativo
+
+Certificaciones
+
+Footer
+
+Redes sociales
+
+Logo
+
+Links relacionados
+
+Adicional
+
+Carrito de compra
+
+Pasarela de pago
+
+Módulo de cálculo de huella de carbono
+
+Reportes: ahorro de carbono por compra
+
+Panel Administrador
+
+Agregar nuevo producto (formulario)
+
+Actualizar precios
+
+Actualizar imágenes
+
+Actualizar links
+
+Borrar producto(s)
+
+## <-- REFERENCIA DE LO QUE HAY QUE HACER
+
+
+
+
+
+## Instalación / Configuración
 
 Paso a paso para:
 
@@ -47,7 +166,7 @@ Levantar el proyecto
 
 (Si no es software, puede ser: pasos para abrir el documento, uso de archivos base, etc.)
 
-7️⃣ Uso
+## Uso
 
 Ejemplos simples de:
 
@@ -57,11 +176,11 @@ Comandos principales
 
 Cómo interactuar con el proyecto
 
-8️⃣ Requisitos
+## Requisitos
 
 Dependencias, versiones mínimas, herramientas necesarias.
 
-9️⃣ Contribución (opcional)
+## Contribución (opcional)
 
 Si otras personas pueden colaborar:
 
@@ -71,20 +190,28 @@ Estilo de código
 
 Flujo de trabajo (branches, PRs, etc.)
 
-🔟 Licencia
+## Licencia
 
 Indica permisos de uso (MIT, GPL, etc.).
 Si no sabes cuál usar, se puede poner “Licencia pendiente”.
 
-1️⃣1️⃣ Autores / Créditos
+## Autores / Créditos
 
-Quién realizó el proyecto, roles, colaboradores, etc.
+No Country - 2025
+**S11-25-Equipo 62-WebApp**
 
-1️⃣2️⃣ Contacto
+- Alba Rodríguez - Full Stack Developer
+- Fabián Jeldes - Frontend Developer
+- María Teresa de la Fuente - Frontend Developer
+- Tiziano Caamano - Frontend Developer
+- Agustín Prato - Frontend Developer
+- David Castro - Backend Developer
+
+## Contacto
 
 Correo, página web, redes profesionales o forma de comunicarse.
 
-1️⃣3️⃣ Notas o consideraciones especiales
+## Notas o consideraciones especiales
 
 Cualquier información adicional relevante:
 
