@@ -1,6 +1,19 @@
+/*const ecoTheme = {
+  dark: false,
+  colors: {
+    background: '#F1FFFF', // El azul muy pálido (Fondo general)
+    surface: '#FFFFFF',    // Blanco puro para las tarjetas
+    primary: '#375A0A',    // Verde Bosque (Botones principales, Headers)
+    secondary: '#C8E8FF',  // Azul Cielo (Botones secundarios, iconos)
+    accent: '#E6EB51',     // Lima (Ofertas, Badges, Call to Action vibrante)
+    info: '#010101',       // Negro (Texto)
+  }
+}*/
+
+
 .footer {
-  background-color: #1e1e1e; /* o el color que necesites */
-  color: white;
+  background-color: #C8E8FF;
+  color: #375A0A;
   padding: 20px 0;
 }
 
@@ -13,4 +26,19 @@
   width: 2.5rem;
   min-width: 2.5rem;
   padding: 0;
+}
+
+
+/* Flechas del carousel en Vuetify 3 */
+.v-carousel .v-btn.v-btn--icon {
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  border-radius: 50% !important;
+}
+
+/* Icono dentro de la flecha */
+.v-carousel .v-btn.v-btn--icon .v-icon {
+  font-size: 18px !important;
 }
