@@ -11,25 +11,17 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-<<<<<<< HEAD
     AppFooter: typeof import('./src/components/AppFooter.vue')['default']
     BlogPost: typeof import('./src/components/BlogPost.vue')['default']
     Card_blog: typeof import('./src/components/BlogPost.vue')['default']
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
-    Navbar: typeof import('./src/components/Navbar.vue')['default']
-    RouterLink: typeof import('vue-router')['RouterLink']
-    RouterView: typeof import('vue-router')['RouterView']
-    SiteFooter: typeof import('./src/components/SiteFooter.vue')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     Hero: typeof import('./src/components/Hero.vue')['default']
-    RouterLink: typeof import('vue-router')['RouterLink']
-    RouterView: typeof import('vue-router')['RouterView']
-    SearchBar: typeof import('./src/components/SearchBar.vue')['default']
-=======
+    Navbar: typeof import('./src/components/Navbar.vue')['default']
     ProductSection: typeof import('./src/components/ProductSection.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
->>>>>>> Tiziano
+    SearchBar: typeof import('./src/components/SearchBar.vue')['default']
+    SiteFooter: typeof import('./src/components/SiteFooter.vue')['default']
   }
 }
