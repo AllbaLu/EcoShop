@@ -5,7 +5,6 @@
 
 <template>
   <v-container>
-    <h1>Product Section View</h1>
     <product-section />
   </v-container>
 </template>
