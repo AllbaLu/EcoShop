@@ -15,7 +15,7 @@ declare module 'vue' {
     BlogPost: typeof import('./src/components/BlogPost.vue')['default']
     Card_blog: typeof import('./src/components/BlogPost.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
-    Navbar: typeof import('./src/components/Navbar.vue')['default']
+    Navbar: typeof import('./src/components/PanelAdmin.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SiteFooter: typeof import('./src/components/SiteFooter.vue')['default']
