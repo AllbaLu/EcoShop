@@ -113,3 +113,13 @@ const toggleFiltros = () => {
 
     </v-container>
 </template>
+
+<style scoped>
+.search.height {
+    height: 3rem;
+}
+.btn-squared {
+    width: 3rem;
+    height: 3rem;
+}
+</style>

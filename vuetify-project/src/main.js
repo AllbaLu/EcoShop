@@ -14,6 +14,8 @@ import { registerPlugins } from '@/plugins'
 import App from './App.vue'
 import vuetify from './plugins/vuetify'
 import Card_blog from './components/BlogPost.vue'
+import { router } from '@/router'
+
 
 // Styles
 import 'unfonts.css'
