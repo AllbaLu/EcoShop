@@ -96,7 +96,7 @@ import { ref } from 'vue';
 
                     <p>Valor producto</p>
                     <v-text-field
-                    class="custom-input rounded-lg"
+                    class="custom-input"
                     type="number"
                     placeholder="Value"
                     ></v-text-field>
@@ -115,6 +115,51 @@ import { ref } from 'vue';
         </v-container>
       </v-container>
     </v-main>
+
+    <v-footer>
+      <hr>
+      <v-row>
+        <v-col>
+          iconos
+        </v-col>
+        <v-col>
+          <h2>Use cases</h2>
+          <br>
+          <p>UI desing</p>
+          <p>UX desing</p>
+          <p>Wireframing</p>
+          <p>Diagramming</p>
+          <p>Brainstorming</p>
+          <p>Online whiteboard</p>
+          <p>Team collaboration</p>
+        </v-col>
+
+        <v-col>
+          <h2>Explore</h2>
+          <br>
+          <p>Desing</p>
+          <p>Prototyping</p>
+          <p>Development features</p>
+          <p>Desing systems</p>
+          <p>collaboration features</p>
+          <p>Desing process</p>
+          <p>Figjam</p>
+        </v-col>
+
+        <v-col>
+          <h2>Resources</h2>
+          <br>
+          <p>Blog</p>
+          <p>Best practices</p>
+          <p>Colors</p>
+          <p>Color wheel</p>
+          <p>Support</p>
+          <p>Developers</p>
+          <p>Resource</p>
+          <br>
+        </v-col>
+      </v-row>
+    </v-footer>
   </v-app>
 </template>
 
