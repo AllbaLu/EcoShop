@@ -83,7 +83,7 @@ import { ref } from 'vue';
             </v-col>
 
             <v-col cols="12" md="4">
-              <v-card class="pa-6 border" elevation="3">
+              <v-card class="pa-6" elevation="3">
                   <v-form>
                     <p>Nombre producto</p>
                     <v-text-field 
@@ -96,7 +96,7 @@ import { ref } from 'vue';
 
                     <p>Valor producto</p>
                     <v-text-field
-                    class="custom-input"
+                    class="custom-input rounded-lg"
                     type="number"
                     placeholder="Value"
                     ></v-text-field>
@@ -106,6 +106,8 @@ import { ref } from 'vue';
                     class="custom-input"
                     placeholder="Value"
                     ></v-textarea>
+
+                    <v-btn block class="bg-black" size="large">INGRESAR</v-btn>
                   </v-form>                
               </v-card>
             </v-col>
