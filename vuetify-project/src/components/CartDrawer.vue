@@ -21,7 +21,7 @@ const cart = useCartStore()
             <v-list-item v-for="(item, index) in cart.items" :key="item.id">
 
                 <template #prepend>
-                    <v-img :src="item.image" width="70" height="70" cover class="mr-3 rounded-lg" />
+                    <v-img :src="item.image" height="50" cover class="mr-1 rounded-lg" />
                 </template>
 
                 <v-list-item-title>{{ item.name }}</v-list-item-title>
@@ -29,18 +29,18 @@ const cart = useCartStore()
 
                 <template #append>
                     <div class="d-flex align-center ga-2">
-                        <v-btn icon size="x-small" @click="cart.decrease(index)">
+                        <v-btn icon size="x-small" density="comfortable" @click="cart.decrease(index)">
                             <v-icon size="18">mdi-minus</v-icon>
                         </v-btn>
 
                         <span>{{ item.quantity }}</span>
 
-                        <v-btn icon size="x-small" @click="cart.increase(index)">
+                        <v-btn icon size="x-small" density="comfortable" @click="cart.increase(index)">
                             <v-icon size="18">mdi-plus</v-icon>
                         </v-btn>
 
-                        <v-btn icon size="x-small" @click="cart.removeItem(index)">
-                            <v-icon color="red">mdi-delete</v-icon>
+                        <v-btn icon size="x-small" density="comfortable" @click="cart.removeItem(index)">
+                            <v-icon color="info">mdi-delete</v-icon>
                         </v-btn>
                     </div>
                 </template>
