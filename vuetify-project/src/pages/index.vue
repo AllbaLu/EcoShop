@@ -1,4 +1,5 @@
 <template>
+  <Card_blog />
 </template>
 
 
