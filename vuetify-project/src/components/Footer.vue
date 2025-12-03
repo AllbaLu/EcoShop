@@ -37,7 +37,7 @@ const redes = [
                 <v-col>
                     <v-sheet class="footer-text pa-2 ma-2">
                         ACCESOS RÁPIDOS
-                        <v-list class="footer-text text-body-2" density="comfortable">
+                        <v-list class="footer-text text-body-2" density="compact">
                             <v-list-item v-for="link in navLinks" :key="link.label" :to="link.href">
                                 {{ link.label}}
                             </v-list-item>
@@ -49,7 +49,7 @@ const redes = [
                 <v-col>
                     <v-sheet class="footer-text pa-2 ma-2">
                         INFORMACIÓN DE USUARIO
-                        <v-list class="footer-text text-body-2" density="comfortable">
+                        <v-list class="footer-text text-body-2" density="compact">
                             <v-list-item>Centro de Ayuda</v-list-item>
                             <v-list-item>Seguimiento de pedidos</v-list-item>
                             <v-list-item>Políticas de Privacidad</v-list-item>
