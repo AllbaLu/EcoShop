@@ -15,6 +15,7 @@ import App from './App.vue'
 import vuetify from './plugins/vuetify'
 import Card_blog from './components/BlogPost.vue'
 import { router } from '@/router'
+import { createPinia } from "pinia"
 
 
 // Styles
@@ -23,6 +24,9 @@ import 'vuetify/styles'
 import '@/style.css'
 
 const app = createApp(App)
+
+// Integrate Pinia
+app.use(createPinia())
 
 registerPlugins(app)
 app.use(vuetify)
