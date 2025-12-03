@@ -120,7 +120,14 @@ import { ref } from 'vue';
       <hr>
       <v-row>
         <v-col>
-          iconos
+          <div>
+            <img src="../assets/figma.png" alt="figma" height="40px" width="40px">
+            <br>
+            <img src="../assets/x.png" alt="x" height="25px" width="25px">
+            <img src="../assets/instagram.png" alt="instagram" height="25px" width="25px">
+            <img src="../assets/youtube.png" alt="youtube" height="25px" width="25px">
+            <img src="../assets/linkedin.png" alt="linkedin" height="25px" width="25px">
+          </div>
         </v-col>
         <v-col>
           <h2>Use cases</h2>
