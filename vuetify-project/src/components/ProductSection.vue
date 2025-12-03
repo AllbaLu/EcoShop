@@ -1,8 +1,10 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useCartStore } from '@/stores/useCartStore';
 
 const router = useRouter();
+const cart = useCartStore();
 
 const goToFullDetail = () => {
   if (selectedProduct.value) {
@@ -27,6 +29,22 @@ const openProductDetail = (product) => {
   showProductDialog.value = true;
 };
 
+const addToCart = () => {
+if (selectedProduct.value) {
+    // Mapeamos los datos para que coincidan con lo que espera el carrito
+    const productForCart = {
+      id: selectedProduct.value.id,
+      name: selectedProduct.value.title, // El carrito usa 'name' o 'title'? Revisa tu store.
+      price: selectedProduct.value.price,
+      image: selectedProduct.value.image, // Adaptamos el nombre de la imagen
+      quantity: 1
+    };
+    
+    cart.addItem(productForCart);
+    showProductDialog.value = false;
+  }
+};
+
 // Filtrar recomendaciones por ID
 const getRecommendations = (ids) => {
   if (!ids) return [];
@@ -49,7 +67,7 @@ const products = ref([
     title: "Cepillo de dientes de bambú", 
     price: 20, 
     rating: 3.5, 
-    imagePlaceholder: "mdi-toothbrush", 
+    image: "mdi-toothbrush", 
     ecoBadges: ["#375A0A", "#E6EB51"],
     description: 'Cepillo 100% biodegradable. Las cerdas son de nylon-4 libre de BPA y el mango es de bambú Moso cultivado de forma sostenible.',
     materials: 'Bambú Moso, Nylon-4',
@@ -62,7 +80,7 @@ const products = ref([
     title: "Camiseta de Algodón Orgánico", 
     price: 25.00, 
     rating: 5, 
-    imagePlaceholder: "mdi-tshirt-crew", 
+    image: "mdi-tshirt-crew", 
     ecoBadges: ['#375A0A'],
     description: 'Camiseta básica suave y transpirable. Cultivada sin pesticidas tóxicos y con un uso reducido de agua.',
     materials: '100% Algodón Orgánico',
@@ -75,7 +93,7 @@ const products = ref([
     title: "Botella de Vidrio Reciclado", 
     price: 18.00, 
     rating: 4, 
-    imagePlaceholder: "mdi-bottle-wine", 
+    image: "mdi-bottle-wine", 
     ecoBadges: [],
     description: 'Botella reutilizable de alta resistencia.',
     materials: 'Vidrio 100% reciclado',
@@ -88,7 +106,7 @@ const products = ref([
     title: "Cuaderno Ecológico", 
     price: 15.00, 
     rating: 4.8, 
-    imagePlaceholder: 'mdi-notebook', 
+    image: 'mdi-notebook', 
     ecoBadges: ['#375A0A'],
     description: 'Hojas de papel reciclado y tapa dura.',
     materials: 'Papel reciclado, Cartón',
@@ -101,7 +119,7 @@ const products = ref([
     title: "Batería Solar", 
     price: 45.00, 
     rating: 4.2, 
-    imagePlaceholder: 'mdi-battery-charging', 
+    image: 'mdi-battery-charging', 
     ecoBadges: ['#E6EB51'],
     description: 'Carga tus dispositivos con energía limpia.',
     materials: 'Plástico reciclado, Celdas solares',
@@ -114,7 +132,7 @@ const products = ref([
     title: "Mochila de Cáñamo", 
     price: 60.00, 
     rating: 4.9, 
-    imagePlaceholder: "mdi-bag-personal", 
+    image: "mdi-bag-personal", 
     ecoBadges: ['#375A0A', '#010101'],
     description: 'Resistente y estilosa para el día a día.',
     materials: 'Fibra de cáñamo natural',
@@ -304,7 +322,7 @@ const products = ref([
                   height="400"
                   class="d-flex align-center justify-center rounded-lg"
                 >
-                  <v-icon :icon="selectedProduct.imagePlaceholder" size="150" color="grey-lighten-1"></v-icon>
+                  <v-icon :icon="selectedProduct.image" size="150" color="grey-lighten-1"></v-icon>
                 </v-sheet>
               </v-col>
 
@@ -362,7 +380,14 @@ const products = ref([
                 </div>
 
                 <div class="d-flex flex-column gap-2">
-                  <v-btn block color="primary" size="large" rounded="pill" class="mb-2 text-none">
+                  <v-btn 
+                    block 
+                    color="forest" 
+                    size="large" 
+                    rounded="pill" 
+                    class="mb-4 text-none bg-forest text-white"
+                    @click="addToCart" 
+                  >
                     Añadir al Carrito
                   </v-btn>
 
