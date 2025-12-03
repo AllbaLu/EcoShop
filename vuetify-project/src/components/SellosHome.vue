@@ -6,11 +6,11 @@ const sellos = [
   },
   {
     title: 'Fair Trade',
-    img: new URL('@/imgs/FairTrade_Logo.png', import.meta.url).href,
+    img: new URL('@/imgs/FSC_Logo.png', import.meta.url).href,
   },
   {
     title: 'EU Ecolabel',
-    img: new URL('@/imgs/EcoLabel_Logo.png', import.meta.url).href,
+    img: new URL('@/imgs/RainForestAlliance_Logo.png', import.meta.url).href,
   }
 ]
 </script>
@@ -19,7 +19,7 @@ const sellos = [
   <v-container class="my-8">
     <v-row justify="center">
       <v-col cols="12" md="8">
-        <v-card flat class="pa-8" color="grey-lighten-5">
+        <v-card flat class="pa-8" color="grey-lighten-5" elevation="4" :class="hover">
           <v-row justify="center" align="center">
             <v-col 
               v-for="sello in sellos" 
@@ -64,5 +64,10 @@ const sellos = [
     width: 90px;
     height: 90px;
   }
+}
+
+.sello-circle:hover .v-img {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
 }
 </style>
