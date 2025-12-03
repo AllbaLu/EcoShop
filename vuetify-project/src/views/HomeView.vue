@@ -11,7 +11,7 @@ const search = ref('')
     <Hero />
     <SearchBar v-model:search="search" />
 
-    <p>Buscando: {{ search }}</p>
+    
 
 
     <Footer />

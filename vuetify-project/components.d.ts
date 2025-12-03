@@ -11,11 +11,10 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    AppFooter: typeof import('./src/components/AppFooter.vue')['default']
     BlogPost: typeof import('./src/components/BlogPost.vue')['default']
-    Card_blog: typeof import('./src/components/BlogPost.vue')['default']
+    Cart: typeof import('./src/components/Cart.vue')['default']
+    CartDrawer: typeof import('./src/components/CartDrawer.vue')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     Hero: typeof import('./src/components/Hero.vue')['default']
     Navbar: typeof import('./src/components/Navbar.vue')['default']
     ProductSection: typeof import('./src/components/ProductSection.vue')['default']
