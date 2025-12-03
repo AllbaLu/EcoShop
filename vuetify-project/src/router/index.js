@@ -30,9 +30,12 @@ const router = createRouter({
       name: 'productsectionview',
       component: ProductSectionView,
     },
+    {
+      path: '/blogdetail/:id',
+      name: 'blogdetailview',
+      component: () => import('@/views/BlogDetailView.vue'),
+    }
   ],
 })
 
-// 3. Exportar el router para usarlo en main.js
-export { router }
 export default router
