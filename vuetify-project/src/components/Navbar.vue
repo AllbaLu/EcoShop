@@ -16,28 +16,26 @@ const cart = useCartStore()
     <v-btn text class="bg-white" :to="{ name: 'productsectionview'}">Catálogo Productos</v-btn>
     <v-btn text class="bg-white">Contacto</v-btn>
 
-    <v-btn
-    class="bg-white"
-    @click="cart.open = true"
-    >
+    <v-btn class="bg-white position-relative" @click="cart.open = true">
 
-    <v-badge
-    :content="cart.items.length"
-    color="accent"
-    v-if="cart.items.length > 0"
-    offset-x="4"
-    offset-y="4"
-    >
-    <template #badge></template>
-    <v-icon>mdi-cart</v-icon>
-    </v-badge>
+      <!-- Ícono normal -->
+      <v-icon class="mr-2">mdi-cart</v-icon>
 
-    <v-icon v-else class="mr-2">mdi-cart</v-icon>
-    CARRITO
-    </v-btn>
+      <!-- Texto -->
+      CARRITO
 
-    <v-btn outlined class="bg-secondary">Log in</v-btn>
-    <v-btn class="bg-secondary">Register</v-btn>
+      <!-- Badge flotando a la derecha -->
+       <v-badge
+       v-if="cart.totalQuantity > 0"
+       :content="cart.totalQuantity"
+       color="accent"
+       class="cart-badge"
+       ></v-badge>
+
+       </v-btn>
+
+      <v-btn outlined class="bg-secondary">Log in</v-btn>
+      <v-btn class="bg-secondary">Register</v-btn>
   </v-app-bar>
 </template>
 
@@ -50,5 +48,11 @@ const cart = useCartStore()
 .v-btn:hover {
   background-color: #ffeb3b ; /* Cambia a un color amarillo brillante al pasar el cursor */
   color: #000000 ; /* Cambia el color del texto al pasar el cursor */
+}
+
+.cart-badge {
+  position: absolute;
+  top: 0.3rem;
+  right: 0.6rem;
 }
 </style>

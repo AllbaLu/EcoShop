@@ -40,5 +40,14 @@ export const useCartStore = defineStore('cart', () => {
         )
     )
 
-    return { open, items, addItem, removeItem, increase, decrease, total}
+    // Total de productos para el badge
+    const totalQuantity = computed(() =>
+        items.value.reduce(
+            (sum, item) => sum + item.quantity,
+            0
+        )
+    )
+
+
+    return { open, items, addItem, removeItem, increase, decrease, total, totalQuantity}
 })
