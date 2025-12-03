@@ -3,9 +3,8 @@ import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
-// En una app real, usarías este ID para buscar en tu API: route.params.id
 
-// Datos simulados del producto (basados en tu imagen)
+// Datos simulados del producto
 const product = ref({
   title: "Text Heading",
   price: 50,

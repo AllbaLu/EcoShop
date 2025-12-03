@@ -31,12 +31,11 @@ const openProductDetail = (product) => {
 
 const addToCart = () => {
 if (selectedProduct.value) {
-    // Mapeamos los datos para que coincidan con lo que espera el carrito
     const productForCart = {
       id: selectedProduct.value.id,
-      name: selectedProduct.value.title, // El carrito usa 'name' o 'title'? Revisa tu store.
+      name: selectedProduct.value.title,
       price: selectedProduct.value.price,
-      image: selectedProduct.value.image, // Adaptamos el nombre de la imagen
+      image: selectedProduct.value.image,
       quantity: 1
     };
     
