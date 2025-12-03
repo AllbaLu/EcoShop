@@ -7,6 +7,9 @@
 // Composables
 import { createApp } from 'vue'
 
+//Manejo de estado global
+import { createPinia } from 'pinia'
+
 // Plugins
 import { registerPlugins } from '@/plugins'
 
@@ -23,15 +26,21 @@ import 'unfonts.css'
 import 'vuetify/styles'
 import '@/style.css'
 
+
+
 const app = createApp(App)
 
 // Integrate Pinia
 app.use(createPinia())
 
 registerPlugins(app)
-app.use(vuetify)
-app.component('Card_blog', Card_blog)
+const pinia = createPinia()
 
+app.use(pinia)
+app.use(vuetify)
+registerPlugins(app)
+
+app.component('Card_blog', Card_blog)
 app.mount('#app')
 
 

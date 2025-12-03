@@ -3,66 +3,66 @@ const slides = [
     {
         image: new URL('@/assets/perro-paisaje.jpg', import.meta.url).href,
         title: "Bienestar natural para tus mascotas",
-        text: 'Productos eco-amigables que cuidan a tu mascota y al planeta. Haz que cada elección cuente.',
+        titleColor: '#E6EB51', 
+        text: 'Productos eco-amigables que cuidan a tu mascota y al planeta. Haz que cada elección cuente.', 
         overlayPosition: 'right',
         overlayWidth: '40%',
         overlayPadding: '2rem',
         fit: 'cover',
         buttons: [
-            { text: 'Ver más', color: 'primary' },
-            { text: 'Contacto', color: 'secondary' }
+            { text: 'Ver más', color: 'accent' },  
         ]
     },
     {
         image: new URL('@/assets/perro-pelota2.jpg', import.meta.url).href,
         title: "Juguetes responsables, diversión real",
+        titleColor: '#C8E8FF',  
         text: 'Pelotas, cuerdas y accesorios fabricados con materiales reciclados y seguros para tu mejor amigo.',
         overlayPosition: 'left',
         overlayWidth: '40%',
         overlayPadding: '2rem',
         fit: 'cover',
         buttons: [
-            { text: 'Ver más', color: 'primary' },
-            { text: 'Contacto', color: 'secondary' }
+            { text: 'Ver más', color: 'secondary' },
         ]
     },
     {
         image: new URL('@/assets/gatos-calle.jpg', import.meta.url).href,
         title: "Marcas que aman y protegen",
+        titleColor: '#E6EB51', 
         text: 'Trabajamos con marcas comprometidas con reducir su impacto ambiental sin comprometer la calidad.',
         overlayPosition: 'left',
         overlayWidth: '40%',
         overlayPadding: '2rem',
         fit: 'cover',
         buttons: [
-            { text: 'Ver más', color: 'primary' },
-            { text: 'Contacto', color: 'secondary' }
+            { text: 'Ver más', color: 'accent' }, 
         ]
     },
     {
         image: new URL('@/assets/perro-tina3.jpg', import.meta.url).href,
         title: "Cuidado natural para pieles sensibles",
+        titleColor: '#C8E8FF', 
         text: 'Shampoos y grooming sin químicos dañinos, biodegradables y suaves con su piel y el planeta.',
         overlayPosition: 'right',
         overlayWidth: '40%',
         overlayPadding: '2rem',
         fit: 'cover',
         buttons: [
-            { text: 'Ver más', color: 'primary' },
-            { text: 'Contacto', color: 'secondary' }
+            { text: 'Ver más', color: 'secondary' },
         ]
     },
     {
         image: new URL('@/assets/perro-paseo2.jpg', import.meta.url).href,
         title: "Pequeños cambios, gran impacto",
+        titleColor: '#E6EB51', 
         text: 'Accesorios y productos reutilizables para paseos más responsables y un futuro más verde.',
         overlayPosition: 'right',
         overlayWidth: '40%',
         overlayPadding: '2rem',
         fit: 'cover',
         buttons: [
-            { text: 'Ver más', color: 'primary' },
-            { text: 'Contacto', color: 'secondary' }
+            { text: 'Ver más', color: 'accent' }, 
         ]
     },
 
@@ -96,11 +96,22 @@ const slides = [
                         left: slide.overlayPosition === 'left' ? '0' : 'auto'
                     }"
                     >
-                        <h2 class="text-h3 font-weight-bold mb-10">{{ slide.title }}</h2>
-                        <p class="text-body-1 mb-4">{{ slide.text }}</p>
+                        <h2 
+                        class="text-h3 font-weight-bold mb-10" 
+                        :style="{ color: slide.titleColor }"
+                        >
+                        {{ slide.title }}
+                        </h2>
+
+                        <p
+                        class="text-body-1 mb-4" 
+                        :style="{ color: slide.textColor }" 
+                        >
+                        {{ slide.text }}
+                        </p>
 
                         <div class="d-flex ga-3">
-                            <v-btn v-for="(btn, j) in slide.buttons" :key="j" :color="btn.color" variant="flat">
+                            <v-btn v-for="(btn, j) in slide.buttons" :key="j" :color="btn.color" variant="outlined">
                                 {{ btn.text }}
                             </v-btn>
                         </div>
@@ -122,7 +133,7 @@ const slides = [
 }
 
 .hero-overlay {
-  background-color: rgba(0, 0, 0, 0.45); /* overlay oscuro */
+  background-color: rgba(0, 0, 0, 0.55); /* overlay oscuro */
   padding: 40px;
   width: 100%;
   height: 100%;
