@@ -18,7 +18,6 @@ declare module 'vue' {
     BlogPostHome: typeof import('./src/components/BlogPostHome.vue')['default']
     Card_blog: typeof import('./src/components/BlogPost.vue')['default']
     Cart: typeof import('./src/components/Cart.vue')['default']
-    BlogPost: typeof import('./src/components/BlogPost.vue')['default']
     CartDrawer: typeof import('./src/components/CartDrawer.vue')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']
     Hero: typeof import('./src/components/Hero.vue')['default']
