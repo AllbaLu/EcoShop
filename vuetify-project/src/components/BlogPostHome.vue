@@ -4,52 +4,47 @@ import { articulos } from '@/data/blogArticles'
 
 const router = useRouter()
 
+// Solo mostrar los primeros 2 artículos
+const articulosFeatured = articulos.slice(0, 2)
+
 function goToDetail(id) {
   console.log('Navegando a artículo:', id)
   router.push({ path: `/blogdetail/${id}` })
 }
 </script>
 
-
-
 <template>
   <v-container class="my-8">
     <v-row>
-      <v-col cols="12" md="8" class="mx-auto">
-        <!-- Iteración sobre artículos -->
+      <v-col 
+        v-for="articulo in articulosFeatured" 
+        :key="articulo.id"
+        cols="12"
+        md="6"
+      >
         <v-card 
-          v-for="articulo in articulos" 
-          :key="articulo.id"
           @click="goToDetail(articulo.id)" 
-          class="hover-card cursor-pointer mb-6"
+          class="hover-card cursor-pointer h-100"
         >
           <div class="pa-4">
             <v-img 
               :src="articulo.image" 
-              height="350px" 
+              height="300px" 
               cover
               class="rounded-lg blog-image"
             ></v-img>
           </div>
-          <v-card-title class="text-h5 font-weight-bold">{{ articulo.title }}</v-card-title>
-          <v-card-subtitle class="text-subtitle-1 mb-2">{{ articulo.subtitle }}</v-card-subtitle>
+          <v-card-title class="text-h6 font-weight-bold">{{ articulo.title }}</v-card-title>
+          <v-card-subtitle class="text-subtitle-2 mb-2">{{ articulo.subtitle }}</v-card-subtitle>
           <v-card-text>
-            <p><strong>{{ articulo.intro }}</strong></p>
-            <p v-for="(paragraph, index) in articulo.bodyText.split('\n\n').slice(0, 2)" :key="index">
-              {{ paragraph }}
-            </p>
+            <p class="text-body-2"><strong>{{ articulo.intro }}</strong></p>
           </v-card-text>
           <v-card-actions>
             <v-btn @click.stop="goToDetail(articulo.id)" color="primary" variant="text">
-              Leer artículo completo
-            </v-btn>
-            <v-spacer></v-spacer>
-            <v-btn :href="articulo.source" target="_blank" text color="secondary" size="small" @click.stop>
-              Fuente original
+              Leer más
             </v-btn>
           </v-card-actions>
         </v-card>
-
       </v-col>
     </v-row>
   </v-container>
