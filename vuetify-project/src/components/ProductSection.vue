@@ -15,26 +15,6 @@ const selectedSizes = ref([]);
 const showProductDialog = ref(false);
 const selectedProduct = ref(null);
 
-<<<<<<< HEAD
-// Funcion: Abrir detalle
-const openProductDetail = (product) => {
-  selectedProduct.value = product;
-  showProductDialog.value = true;
-};
-
-const addToCart = () => {
-if (selectedProduct.value) {
-    const productForCart = {
-      id: selectedProduct.value.id,
-      name: selectedProduct.value.title,
-      price: selectedProduct.value.price,
-      image: selectedProduct.value.image,
-      quantity: 1
-    };
-    
-    cart.addItem(productForCart);
-    showProductDialog.value = false;
-=======
 // --- 2. DATOS DE PRODUCTOS (CORREGIDOS) ---
 const products = ref([
   { 
@@ -114,7 +94,6 @@ const products = ref([
     origin: 'Nepal',
     emissions: '3.1kg CO2e',
     recommendations: [2]
->>>>>>> Tiziano
   }
 ]);
 
