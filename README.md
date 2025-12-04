@@ -344,7 +344,6 @@ No Country - 2025
 - María Teresa de la Fuente - Frontend Developer
 - Tiziano Caamano - Frontend Developer
 - Agustín Prato - Frontend Developer
-- David Castro - Backend Developer
 
 ## Contacto
 
