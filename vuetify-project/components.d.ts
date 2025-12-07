@@ -12,11 +12,8 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AppFooter: typeof import('./src/components/AppFooter.vue')['default']
-<<<<<<< HEAD
     BlogDetail: typeof import('./src/components/BlogDetail.vue')['default']
     BlogDetali: typeof import('./src/components/BlogDetali.vue')['default']
-=======
->>>>>>> 7c3bc8be919addfff84955bc3516a4ca7bcaa92d
     BlogPost: typeof import('./src/components/BlogPost.vue')['default']
     BlogPostHome: typeof import('./src/components/BlogPostHome.vue')['default']
     Card_blog: typeof import('./src/components/BlogPost.vue')['default']
