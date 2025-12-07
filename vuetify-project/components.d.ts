@@ -13,7 +13,6 @@ declare module 'vue' {
   export interface GlobalComponents {
     BKP: typeof import('./src/components/BKP.vue')['default']
     BlogDetail: typeof import('./src/components/BlogDetail.vue')['default']
-    BlogDetali: typeof import('./src/components/BlogDetali.vue')['default']
     BlogPost: typeof import('./src/components/BlogPost.vue')['default']
     BlogPostHome: typeof import('./src/components/BlogPostHome.vue')['default']
     Card_blog: typeof import('./src/components/BlogPost.vue')['default']
