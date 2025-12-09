@@ -47,6 +47,21 @@ export const articulos = [
     sourceName: 'Forest Stewardship Council (FSC) - Technical Standards',
     author: 'Equipo EcoShop',
     date: '2024-04-10'
+  },
+  {
+    id: 4,
+    title: 'El papel de la certificación orgánica en la mitigación del cambio climático',
+    subtitle: 'Cómo los estándares orgánicos contribuyen a la reducción de emisiones y al secuestro de carbono.',
+    image: 'https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=1920&auto=format&fit=crop',
+    intro: 'La agricultura convencional es responsable de una parte significativa de las emisiones globales de gases de efecto invernadero. Exploramos cómo la certificación orgánica puede ser una herramienta clave en la lucha contra el cambio climático.',
+    bodyText: `La producción agrícola convencional depende en gran medida de fertilizantes sintéticos y pesticidas derivados del petróleo, que liberan óxidos de nitrógeno y otros gases de efecto invernadero. En contraste, los métodos orgánicos certificados promueven prácticas que mejoran la salud del suelo y aumentan su capacidad para secuestrar carbono.
+    Estudios de la Universidad de California han demostrado que los suelos gestionados orgánicamente pueden almacenar hasta un 30% más de carbono que los suelos convencionales. Además, la certificación orgánica impone restricciones estrictas sobre el uso de insumos químicos, fomentando la biodiversidad y reduciendo la contaminación del agua y del aire.
+    
+    Al elegir productos con certificación orgánica en nuestra tienda, los consumidores no solo apoyan prácticas agrícolas sostenibles, sino que también contribuyen activamente a la mitigación del cambio climático a través de un sistema alimentario más resiliente y ecológico.`,
+    source: 'https://www.organic-center.org/science/organic-agriculture-and-climate-change/',
+    sourceName: 'The Organic Center - Organic Agriculture and Climate Change',
+    date: '2024-05-05'
+
   }
 ]
 

@@ -1,7 +1,8 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useCartStore } from '@/stores/useCartStore';
+import api from '@/api_auth';
 
 const router = useRouter();
 const cart = useCartStore();
@@ -59,9 +60,25 @@ const filterColors = [
   { name: "Negro", hex: "#010101" } 
 ];
 
-// Datos Productos
+// Datos Productos - ahora desde el backend
+const products = ref([]);
+const loading = ref(false);
+const error = ref('');
 
-const products = ref([
+// Cargar productos desde el backend
+async function loadProducts() {
+  loading.value = true;
+  error.value = '';
+  
+  try {
+    const response = await api.get('/products');
+    products.value = response.data;
+    console.log('Productos cargados:', products.value);
+  } catch (err) {
+    error.value = 'Error al cargar productos';
+    console.error('Error al cargar productos:', err);
+    // Mantener productos de ejemplo si falla
+    products.value = [
 { 
     id: 1, 
     title: "Cepillo de dientes de bambú", 
@@ -140,12 +157,34 @@ const products = ref([
     emissions: '3.1kg CO2e',
     recommendations: [2]
   }
-]);
+    ];
+  } finally {
+    loading.value = false;
+  }
+}
+
+// Cargar productos al montar el componente
+onMounted(() => {
+  loadProducts();
+});
 </script>
 
 <template>
   <v-container fluid class="bg-white py-8">
-    <v-row>
+    <!-- Indicador de carga -->
+    <v-row v-if="loading" class="justify-center my-8">
+      <v-col cols="12" class="text-center">
+        <v-progress-circular indeterminate color="primary" size="64"></v-progress-circular>
+        <p class="mt-4">Cargando productos...</p>
+      </v-col>
+    </v-row>
+
+    <!-- Mensaje de error -->
+    <v-alert v-if="error" type="warning" class="mb-4">
+      {{ error }}. Mostrando productos de ejemplo.
+    </v-alert>
+
+    <v-row v-if="!loading">
       
       <v-col cols="12" md="3" lg="2" class="pr-md-6">
         

@@ -116,6 +116,7 @@ const sellos = [
 
 .sello-card:hover {
   transform: translateY(-8px);
+  
 }
 
 .sello-card:hover .sello-image {

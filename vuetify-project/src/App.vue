@@ -3,6 +3,7 @@
   import CartDrawer from './components/CartDrawer.vue'
   import Footer from './components/Footer.vue'
   import BlogPost from './components/BlogPost.vue';
+
 </script>
 
 <template>
@@ -12,5 +13,6 @@
     <v-main>
       <router-view />
     </v-main>
+    <Footer />
   </v-app>
 </template>
