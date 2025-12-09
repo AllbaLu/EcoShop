@@ -11,12 +11,9 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    BKP: typeof import('./src/components/BKP.vue')['default']
     BlogDetail: typeof import('./src/components/BlogDetail.vue')['default']
     BlogPost: typeof import('./src/components/BlogPost.vue')['default']
     BlogPostHome: typeof import('./src/components/BlogPostHome.vue')['default']
-    Card_blog: typeof import('./src/components/BlogPost.vue')['default']
-    Cart: typeof import('./src/components/Cart.vue')['default']
     CartDrawer: typeof import('./src/components/CartDrawer.vue')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']
     Hero: typeof import('./src/components/Hero.vue')['default']
