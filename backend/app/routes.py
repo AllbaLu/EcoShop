@@ -20,13 +20,19 @@ def register():
     if User.query.filter_by(email=data["email"]).first():
         return jsonify({"error": "El email ya está registrado"}), 400
     
+    # Separar name en firstname y lastname si viene completo
+    full_name = data.get("name", "")
+    name_parts = full_name.split(" ", 1)
+    firstname = name_parts[0]
+    lastname = name_parts[1] if len(name_parts) > 1 else ""
+    
     new_user = User(
-        name=data["name"],
-        lastname=data["lastname"],
+        name=firstname,
+        lastname=lastname,
         email=data["email"],
         gender=data.get("gender"),
         birth_date=data.get("birth_date"),
-        role=data.get("role", "user")  # user o manager
+        role=data.get("role", "user")  # user o admin
     )
     new_user.password = new_user.generate_password(data["password"])
 
@@ -67,6 +73,7 @@ def get_products():
 @jwt_required()
 @manager_required
 def create_product():
+    import json
     data = request.json
     user_id = get_jwt_identity()
 
@@ -75,6 +82,12 @@ def create_product():
         description=data["description"],
         price=data["price"],
         stock=data["stock"],
+        image=data.get("image", "mdi-package-variant"),
+        rating=data.get("rating", 0.0),
+        eco_badges=json.dumps(data.get("ecoBadges", [])),
+        materials=data.get("materials", ""),
+        origin=data.get("origin", ""),
+        emissions=data.get("emissions", ""),
         manager_id=user_id
     )
 

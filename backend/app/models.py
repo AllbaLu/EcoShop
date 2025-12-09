@@ -16,9 +16,9 @@ class User(db.Model):
     password = db.Column(db.String(255), nullable=False)
     gender = db.Column(db.String(20))
     birth_date = db.Column(db.String(20))
-    role = db.Column(db.String(20), default="user")  # user o manager
+    role = db.Column(db.String(20), default="user")  # user o admin
 
-    products = db.relationship("Product", backref="manager", lazy=True)
+    products = db.relationship("Product", backref="admin", lazy=True)
 
     # Password helpers
     def generate_password(self, password):
@@ -28,9 +28,12 @@ class User(db.Model):
         return bcrypt.check_password_hash(self.password, password)
 
     def serialize(self):
+        # Concatenar nombre completo para el frontend
+        full_name = f"{self.name} {self.lastname}".strip()
         return {
             "id": self.id,
-            "name": self.name,
+            "name": full_name,  # Nombre completo
+            "firstname": self.name,  # Por si se necesita separado
             "lastname": self.lastname,
             "email": self.email,
             "gender": self.gender,
@@ -45,31 +48,44 @@ class Product(db.Model):
     description = db.Column(db.Text, nullable=False)
     price = db.Column(db.Float, nullable=False)
     stock = db.Column(db.Integer, default=0)
+    image = db.Column(db.String(500))  # URL de la imagen o icono
+    rating = db.Column(db.Float, default=0.0)
+    eco_badges = db.Column(db.String(500))  # JSON string con colores de badges
+    materials = db.Column(db.String(500))
+    origin = db.Column(db.String(200))
+    emissions = db.Column(db.String(100))  # ej: "0.2kg CO2e"
 
     manager_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
     def serialize(self):
+        import json
         return {
             "id": self.id,
             "title": self.title,
             "description": self.description,
             "price": self.price,
             "stock": self.stock,
+            "image": self.image,
+            "rating": self.rating,
+            "ecoBadges": json.loads(self.eco_badges) if self.eco_badges else [],
+            "materials": self.materials,
+            "origin": self.origin,
+            "emissions": self.emissions,
             "manager_id": self.manager_id
         }
 
 
 # ================================
-#    DECORADOR PARA MANAGERS
+#    DECORADOR PARA ADMINS
 # ================================
 def manager_required(func):
-    """Decorador para validar que el usuario sea manager."""
+    """Decorador para validar que el usuario sea administrador."""
     @wraps(func)
     def wrapper(*args, **kwargs):
         user_id = get_jwt_identity()
         user = User.query.get(user_id)
         
-        if not user or user.role != "manager":
+        if not user or user.role != "admin":
             return jsonify({"error": "Acceso denegado. Solo administradores."}), 403
         
         return func(*args, **kwargs)
