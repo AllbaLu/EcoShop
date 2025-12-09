@@ -345,6 +345,7 @@ No Country - 2025
 - Tiziano Caamano - Frontend Developer
 - Agustín Prato - Frontend Developer
 
+
 ## Contacto
 
 grupoecoshop@gmail.com

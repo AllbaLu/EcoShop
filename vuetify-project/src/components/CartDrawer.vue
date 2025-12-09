@@ -25,7 +25,7 @@ const cart = useCartStore()
                 </template>
 
                 <v-list-item-title>{{ item.name }}</v-list-item-title>
-                <v-list-item-subtitle>{{ item.price }} CLP</v-list-item-subtitle>
+                <v-list-item-subtitle>$ {{ item.price.toFixed(2) }}</v-list-item-subtitle>
 
                 <template #append>
                     <div class="d-flex align-center ga-2">
@@ -50,7 +50,7 @@ const cart = useCartStore()
         <v-divider class="my-4"></v-divider>
 
         <div class="px-4 text-h6">
-            Total: {{ cart.total }} CLP
+            Total: $ {{ cart.total.toFixed(2) }}
         </div>
 
         <div class="text-center">
