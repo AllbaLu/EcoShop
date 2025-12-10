@@ -2,18 +2,15 @@
 import { ref, computed, onMounted } from 'vue';
 import { useCartStore } from '@/stores/useCartStore';
 import api from '@/api';
+import { useFilterStore } from '@/stores/useFilterStore';
 
 const cart = useCartStore();
+const filterStore = useFilterStore();
 
 // --- 1. VARIABLES DE BÚSQUEDA Y FILTROS ---
-const searchQuery = ref(''); // Texto del buscador
 const showFilters = ref(false); // Mostrar/Ocultar panel de filtros
 
 // Filtros
-const selectedTags = ref([]);
-const selectedSizes = ref([]);
-const selectedColors = ref([]); // <--- NUEVO: Para filtro de color
-const priceRange = ref([0, 100000]);
 const sortOption = ref("new");
 
 // Variables del Modal
@@ -21,7 +18,11 @@ const showProductDialog = ref(false);
 const selectedProduct = ref(null);
 
 // --- 2. DATOS ESTÁTICOS ---
-const availableTags = ["Baño", "Ropa", "Cocina", "Oficina", "Tecnología", "Viaje", "Zero Waste"];
+const availableTags = [
+  "Mascotas", "Limpieza", "Hogar", "Jardín", 
+  "Cuidado Personal", "Ropa", "Tecnología", "Viaje", "Zero Waste", 
+  "Juguetes", "Arena", "Gatos", "Aseo", "Cocina", "Perros"
+];
 
 // Mapeo de colores (Nombre -> Hexadecimal que usas en ecoBadges)
 const filterColors = [
@@ -100,7 +101,7 @@ const productsStatic = [
     price: 6.95, rating: 4.5,
     image: new URL('@/assets/productos/sanicat1.png', import.meta.url).href,
     ecoBadges: ["#375A0A", "#E6EB51"],
-    sizes: ['S'], tags: ['Arena, Gatos'],
+    sizes: ['S'], tags: ["Arena", "Gatos"],
     description: `La fragancia de valeriana de la arena está especialmente 
         formulada para facilitar el adiestramiento de los gatitos y facilitar 
         el uso de la caja de arena, mientras que los finos gránulos son respetuosos 
@@ -121,7 +122,7 @@ const productsStatic = [
     price: 6.95, rating: 4.0,
     image: new URL('@/assets/productos/sanicat2.jpg', import.meta.url).href,
     ecoBadges: ["#375A0A", "#E6EB51"],
-    sizes: ['S'], tags: ['Arena, Gatos'],
+    sizes: ['S'], tags: ["Arena", "Gatos"],
     description: `Arena absorbente superior que atrapa la orina y 
         controla los malos olores hasta tres veces más tiempo que las 
         arenas no aglomerantes convencionales. Formato: 5L`,
@@ -141,7 +142,7 @@ const productsStatic = [
     price: 6.00, rating: 4.3,
     image: new URL('@/assets/productos/sanicat3.png', import.meta.url).href,
     ecoBadges: ["#375A0A", "#E6EB51"],
-    sizes: ['S'], tags: ['Arena, Gatos'],
+    sizes: ['S'], tags: ["Arena", "Gatos"],
     description: `con aroma de aloe vera para una frescura continua. Esta 
         arena es muy adecuada para dueños de gatos que no tienen tiempo de limpiar 
         a menudo la bandeja de arena.Gracias a su alta capacidad de absorción y 
@@ -165,7 +166,7 @@ const productsStatic = [
     price: 6.20, rating: 4.5,
     image: new URL('@/assets/productos/iherb1.avif', import.meta.url).href,
     ecoBadges: ["#375A0A", "#E6EB51"],
-    sizes: ['S'], tags: ['Aseo, Perros'],
+    sizes: ['S'], tags: ["Aseo", "Perros"],
     description: `Producto especialmente contorneado para las uñas de las mascotas.
         Mantiene las uñas suaves y saludables. Cortar y limar las uñas de forma adecuada 
         y con regularidad es importante para la comodidad y la salud de su mascota.`,
@@ -203,7 +204,7 @@ const productsStatic = [
     price: 9.40, rating: 4.5,
     image: new URL('@/assets/productos/iherb3.avif', import.meta.url).href,
     ecoBadges: ["#375A0A", "#E6EB51"],
-    sizes: ['S'], tags: ['Aseo, Perros'],
+    sizes: ['S'], tags: ["Aseo", "Perros"],
     description: `Ideal para perros medianos, con puntas recubiertas
         para mayor comodidad. Elimina los enredos y el cabello suelto. Su uso frecuente
         ayuda a mantener un pelaje saludable`,
@@ -221,7 +222,7 @@ const productsStatic = [
     price: 10.30, rating: 4.6,
     image: new URL('@/assets/productos/iherb4.avif', import.meta.url).href,
     ecoBadges: ["#375A0A", "#E6EB51"],
-    sizes: ['S'], tags: ['Aseo, Mascotas'],
+    sizes: ['S'], tags: ["Aseo", "Mascotas"],
     description: `Extraordinariamente eficaz en las manchas difíciles
         , ya que utiliza enzimas activas e ingredientes cuidadosamente 
         seleccionados que no decoloran los colores. Elimina los olores
@@ -358,32 +359,38 @@ onMounted(() => {
 // --- 4. LÓGICA DE FILTRADO AVANZADA ---
 const filteredProducts = computed(() => {
   let result = products.value.filter(p => {
-    // A. Búsqueda por Texto (Nombre)
-    const matchSearch = p.name.toLowerCase().includes(searchQuery.value.toLowerCase());
     
-    // B. Filtro Precio
-    const matchPrice = p.price >= priceRange.value[0] && p.price <= priceRange.value[1];
+    // Usamos filterStore.variable
+    const matchSearch = p.name.toLowerCase().includes(filterStore.searchQuery.toLowerCase());
+    const matchPrice = p.price >= filterStore.priceRange[0] && p.price <= filterStore.priceRange[1];
     
-    // C. Filtro Tamaño
-    const matchSize = selectedSizes.value.length === 0 || (p.sizes && p.sizes.some(s => selectedSizes.value.includes(s)));
+    const matchSize = filterStore.selectedSizes.length === 0 || 
+                      (p.sizes && p.sizes.some(s => filterStore.selectedSizes.includes(s)));
     
-    // D. Filtro Etiquetas
-    const matchTags = selectedTags.value.length === 0 || (p.tags && p.tags.some(t => selectedTags.value.includes(t)));
+    const matchTags = filterStore.selectedTags.length === 0 || 
+                      (p.tags && p.tags.some(t => filterStore.selectedTags.includes(t)));
     
-    // E. Filtro COLORES
-    const matchColor = selectedColors.value.length === 0 ||
-      (p.ecoBadges && p.ecoBadges.some(c => selectedColors.value.includes(c)));
-    
+    const matchColor = filterStore.selectedColors.length === 0 || 
+                       (p.ecoBadges && p.ecoBadges.some(c => filterStore.selectedColors.includes(c)));
+
     return matchSearch && matchPrice && matchSize && matchTags && matchColor;
   });
-  
+
   // Ordenamiento
-  if (sortOption.value === 'asc') result.sort((a, b) => a.price - b.price);
-  else if (sortOption.value === 'desc') result.sort((a, b) => b.price - a.price);
-  else if (sortOption.value === 'rating') result.sort((a, b) => b.rating - a.rating);
+  if (filterStore.sortOption === 'asc') result.sort((a, b) => a.price - b.price);
+  else if (filterStore.sortOption === 'desc') result.sort((a, b) => b.price - a.price);
+  else if (filterStore.sortOption === 'rating') result.sort((a, b) => b.rating - a.rating);
   else result.sort((a, b) => b.id - a.id);
-  
+
   return result;
+});
+
+onMounted(() => {
+  if (filterStore.productToOpen) {
+    selectedProduct.value = filterStore.productToOpen;
+    showProductDialog.value = true;
+    filterStore.productToOpen = null;
+  }
 });
 
 // --- FUNCIONES ---
@@ -418,7 +425,7 @@ const getRecommendations = (ids) => (!ids ? [] : products.value.filter(p => ids.
     <v-row align="center" class="mb-6">
 
       <v-col>
-        <v-text-field v-model="searchQuery" label="Buscar productos sostenibles..." prepend-inner-icon="mdi-magnify"
+        <v-text-field v-model="filterStore.searchQuery" label="Buscar productos sostenibles..." prepend-inner-icon="mdi-magnify"
           clearable variant="outlined" density="compact" hide-details rounded="pill" />
       </v-col>
 
@@ -434,7 +441,7 @@ const getRecommendations = (ids) => (!ids ? [] : products.value.filter(p => ids.
       </v-col>
 
       <v-col cols="12" md="auto" class="d-flex justify-end mt-3 mt-md-0">
-        <v-btn-toggle v-model="sortOption" mandatory density="compact" variant="text" class="sort-toggle">
+        <v-btn-toggle v-model="filterStore.sortOption" mandatory density="compact" variant="text" class="sort-toggle">
           <v-btn value="new" class="sort-btn" size="small">Nuevo</v-btn>
           <v-btn value="asc" class="sort-btn" size="small">Precio Asc</v-btn>
           <v-btn value="desc" class="sort-btn" size="small">Precio Desc</v-btn>
@@ -449,7 +456,7 @@ const getRecommendations = (ids) => (!ids ? [] : products.value.filter(p => ids.
 
           <v-col cols="12" md="4">
             <h4 class="text-subtitle-2 font-weight-bold mb-2">Etiquetas</h4>
-            <v-chip-group v-model="selectedTags" column multiple>
+            <v-chip-group v-model="filterStore.selectedTags" column multiple>
               <v-chip v-for="tag in availableTags" :key="tag" :value="tag" filter variant="outlined" size="small"
                 color="forest">{{ tag }}</v-chip>
             </v-chip-group>
@@ -457,19 +464,19 @@ const getRecommendations = (ids) => (!ids ? [] : products.value.filter(p => ids.
 
           <v-col cols="12" md="3">
             <h4 class="text-subtitle-2 font-weight-bold mb-2">Rango de Precio</h4>
-            <div class="text-caption mb-1">${{ priceRange[0] }} - ${{ priceRange[1] }}</div>
-            <v-range-slider v-model="priceRange" max="100000" min="0" step="500" thumb-size="14" track-color="grey-lighten-2"
+            <div class="text-caption mb-1">${{ filterStore.priceRange[0] }} - ${{ filterStore.priceRange[1] }}</div>
+            <v-range-slider v-model="filterStore.priceRange" max="100000" min="0" step="500" thumb-size="14" track-color="grey-lighten-2"
               track-fill-color="forest" thumb-color="forest" hide-details></v-range-slider>
           </v-col>
 
           <v-col cols="12" md="2">
             <h4 class="text-subtitle-2 font-weight-bold mb-2">Tamaño</h4>
             <div class="d-flex flex-column">
-              <v-checkbox v-model="selectedSizes" label="Chico (S)" value="S" density="compact" hide-details
+              <v-checkbox v-model="filterStore.selectedSizes" label="Chico (S)" value="S" density="compact" hide-details
                 color="forest" class="mt-0 pt-0"></v-checkbox>
-              <v-checkbox v-model="selectedSizes" label="Mediano (M)" value="M" density="compact" hide-details
+              <v-checkbox v-model="filterStore.selectedSizes" label="Mediano (M)" value="M" density="compact" hide-details
                 color="forest" class="mt-0 pt-0"></v-checkbox>
-              <v-checkbox v-model="selectedSizes" label="Grande (L)" value="L" density="compact" hide-details
+              <v-checkbox v-model="filterStore.selectedSizes" label="Grande (L)" value="L" density="compact" hide-details
                 color="forest" class="mt-0 pt-0"></v-checkbox>
             </div>
           </v-col>
@@ -479,11 +486,11 @@ const getRecommendations = (ids) => (!ids ? [] : products.value.filter(p => ids.
             <div class="d-flex flex-wrap gap-2">
               <div v-for="(color, index) in filterColors" :key="index"
                 class="d-flex align-center mr-4 mb-2 cursor-pointer"
-                @click="selectedColors.includes(color.hex) ? selectedColors = selectedColors.filter(c => c !== color.hex) : selectedColors.push(color.hex)">
+                @click="filterStore.selectedColors.includes(color.hex) ? filterStore.selectedColors = filterStore.selectedColors.filter(c => c !== color.hex) : filterStore.selectedColors.push(color.hex)">
                 <v-icon
-                  :icon="selectedColors.includes(color.hex) ? 'mdi-checkbox-marked' : 'mdi-checkbox-blank-outline'"
+                  :icon="filterStore.selectedColors.includes(color.hex) ? 'mdi-checkbox-marked' : 'mdi-checkbox-blank-outline'"
                   :color="color.hex" class="mr-2"></v-icon>
-                <span class="text-body-2" :class="{ 'font-weight-bold': selectedColors.includes(color.hex) }">{{
+                <span class="text-body-2" :class="{ 'font-weight-bold': filterStore.selectedColors.includes(color.hex) }">{{
                   color.name }}</span>
               </div>
             </div>
