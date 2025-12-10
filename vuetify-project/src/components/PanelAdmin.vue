@@ -28,6 +28,7 @@ const imagePreview = ref('')
 const loading = ref(false)
 const success = ref(false)
 const error = ref('')
+const fileInput = ref(null) // Referencia para el input de archivo
 
 // Opciones de badges ecológicos
 const ecoBadgeOptions = [
@@ -50,6 +51,24 @@ const sizeOptions = ['XS', 'S', 'M', 'L', 'XL']
 function loadImageFromUrl() {
   if (formData.value.image) {
     imagePreview.value = formData.value.image
+  }
+}
+
+function handleFileUpload(files) {
+  if (!files || files.length === 0) return;
+  
+  // Vuetify 3 file input returns an array of File objects directly or via event
+  // If 'files' is an array (from v-model or event), take the first one.
+  const file = Array.isArray(files) ? files[0] : files;
+
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const base64String = e.target.result;
+      formData.value.image = base64String;
+      imagePreview.value = base64String;
+    };
+    reader.readAsDataURL(file);
   }
 }
 
@@ -105,6 +124,7 @@ function resetForm() {
     sizes: []
   }
   imagePreview.value = ''
+  fileInput.value = null // Reset file input
 }
 </script>
 
@@ -175,9 +195,20 @@ function resetForm() {
                     v-model="formData.image" 
                     label="URL de la imagen o ícono MDI" 
                     placeholder="http://www.example.com o mdi-package"
+                    @update:modelValue="loadImageFromUrl"
                   ></v-text-field>
-                  <div class="d-flex flex-start mt-4">
-                    <v-btn class="bg-black" size="large" @click="loadImageFromUrl">CARGAR DESDE URL</v-btn>
+                  
+                  <div class="d-flex flex-column mt-4 gap-2">
+                    <v-btn class="bg-black mb-2" size="large" @click="loadImageFromUrl">CARGAR DESDE URL</v-btn>
+                    
+                    <v-file-input
+                      v-model="fileInput"
+                      label="O subir imagen desde local"
+                      accept="image/*"
+                      prepend-icon="mdi-camera"
+                      variant="outlined"
+                      @update:modelValue="handleFileUpload"
+                    ></v-file-input>
                   </div>
                 </v-form>
               </v-card>

@@ -69,7 +69,7 @@ class Product(db.Model):
     description = db.Column(db.Text, nullable=False)
     price = db.Column(db.Float, nullable=False)
     stock = db.Column(db.Integer, default=0)
-    image = db.Column(db.String(500))  # URL de la imagen o icono
+    image = db.Column(db.Text)  # URL de la imagen, icono o Base64
     rating = db.Column(db.Float, default=0.0)
     eco_badges = db.Column(db.String(500))  # JSON string con colores de badges
     materials = db.Column(db.String(500))
