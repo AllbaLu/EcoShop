@@ -11,4 +11,4 @@ if __name__ == "__main__":
         print(f"{rule}\t==> {rule.endpoint}")
     print("\n")
 
-    app.run(debug=True)
+    app.run(debug=False)

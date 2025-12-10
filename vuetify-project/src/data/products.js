@@ -1,3 +1,5 @@
+import { ref } from 'vue'
+
 // --- 3. DATOS DE PRODUCTOS ---
 export const products = ref([
     {
@@ -223,101 +225,9 @@ export const products = ref([
         emissions: '0.2kg CO2e',
         recommendations: [2, 3]
     },
+])
 
+export function getProductById(id) {
+    return products.value.find(prod => prod.id === parseInt(id))
+}
 
-
-
-
-    {
-        id: 1,
-        name: "Cepillo de dientes de bambú",
-        price: 20, rating: 3.5, image: "mdi-toothbrush",
-        ecoBadges: ["#375A0A", "#E6EB51"],
-        sizes: ['S'], tags: ['Baño', 'Zero Waste'],
-        description: 'Cepillo 100% biodegradable.', materials: 'Bambú Moso', origin: 'Vietnam', emissions: '0.2kg CO2e', recommendations: [2, 3]
-    },
-    {
-        id: 1,
-        name: "Cepillo de dientes de bambú",
-        price: 20, rating: 3.5, image: "mdi-toothbrush",
-        ecoBadges: ["#375A0A", "#E6EB51"],
-        sizes: ['S'], tags: ['Baño', 'Zero Waste'],
-        description: 'Cepillo 100% biodegradable.', materials: 'Bambú Moso', origin: 'Vietnam', emissions: '0.2kg CO2e', recommendations: [2, 3]
-    },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    {
-        id: 1,
-        name: "Cepillo de dientes de bambú",
-        price: 20, rating: 3.5, image: "mdi-toothbrush",
-        ecoBadges: ["#375A0A", "#E6EB51"],
-        sizes: ['S'], tags: ['Baño', 'Zero Waste'],
-        description: 'Cepillo 100% biodegradable.', materials: 'Bambú Moso', origin: 'Vietnam', emissions: '0.2kg CO2e', recommendations: [2, 3]
-    },
-    {
-        id: 2,
-        name: "Camiseta de Algodón",
-        price: 25.00, rating: 5, image: "mdi-tshirt-crew",
-        ecoBadges: ['#375A0A'],
-        sizes: ['S', 'M', 'L'], tags: ['Ropa'],
-        description: 'Camiseta básica suave.', materials: 'Algódón', origin: 'Perú', emissions: '4.5kg CO2e', recommendations: [1, 6]
-    },
-    {
-        id: 3,
-        name: "Botella de Vidrio",
-        price: 18.00, rating: 4, image: "mdi-bottle-wine",
-        ecoBadges: ["#F1FFFF", "#C8E8FF"],
-        sizes: ['M'],
-        tags: ['Cocina', 'Viaje'],
-        description: 'Dile adiós a los plásticos de un solo uso con esta botella de vidrio de borosilicato de alta resistencia. Soporta choques térmicos (bebidas frías o calientes) y cuenta con una funda de silicona antideslizante para protección extra. Su tapa de bambú hermética con sello de silicona asegura que no haya derrames.',
-        materials: 'Vidrio',
-        origin: 'Local',
-        emissions: '1.2kg CO2e',
-        recommendations: [1]
-    },
-    {
-        id: 4,
-        name: "Cuaderno Ecológico",
-        price: 15.00, rating: 4.8, image: 'mdi-notebook',
-        ecoBadges: ['#375A0A'],
-        sizes: ['M'],
-        tags: ['Oficina'],
-        description: 'Captura tus ideas en este cuaderno premium. Sus 120 páginas están hechas de papel 100% reciclado post-consumo de 90g, evitando que la tinta traspase. La tapa dura de cartón reciclado es resistente y elegante. El proceso de blanqueado es libre de cloro (TCF), protegiendo los recursos hídricos.', materials: 'Papel',
-        origin: 'Brasil',
-        emissions: '0.8kg CO2e',
-        recommendations: [5]
-    },
-    {
-        id: 5,
-        name: "Batería Solar",
-        price: 45.00, rating: 4.2, image: 'mdi-battery-charging',
-        ecoBadges: ['#E6EB51', "#C8E8FF"],
-        sizes: ['S'],
-        tags: ['Tecnología', 'Viaje'],
-        description: 'Carga con energía limpia.',
-        materials: 'Plástico reciclado',
-        origin: 'China',
-        emissions: '12kg CO2e',
-        recommendations: [4]
-    },
-    {
-        id: 6,
-        name: "Mochila de Cáñamo",
-        price: 60.00, rating: 4.9, image: "mdi-bag-personal",
-        ecoBadges: ['#375A0A', '#010101'],
-        sizes: ['L'], tags: ['Viaje', 'Ropa'],
-        description: 'Resistente y estilosa.', materials: 'Cáñamo', origin: 'Nepal', emissions: '3.1kg CO2e', recommendations: [2]
-    }
-]);

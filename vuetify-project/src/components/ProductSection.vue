@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import { useCartStore } from '@/stores/useCartStore';
-import api from '@/api_auth';
+import api from '@/api';
 
 const cart = useCartStore();
 
@@ -13,7 +13,7 @@ const showFilters = ref(false); // Mostrar/Ocultar panel de filtros
 const selectedTags = ref([]);
 const selectedSizes = ref([]);
 const selectedColors = ref([]); // <--- NUEVO: Para filtro de color
-const priceRange = ref([0, 100]);
+const priceRange = ref([0, 100000]);
 const sortOption = ref("new");
 
 // Variables del Modal
@@ -317,25 +317,33 @@ const products = ref([]);
 const loading = ref(false);
 const error = ref('');
 
-// Cargar productos desde el backend
+// Cargar productos desde el backend y combinarlos con los estáticos
 async function loadProducts() {
   loading.value = true;
   error.value = '';
   
   try {
     const response = await api.get('/products');
-    // Si hay productos del backend, usarlos
-    if (response.data && response.data.length > 0) {
-      products.value = response.data;
-    } else {
-      // Si no hay productos, usar los estáticos
-      products.value = productsStatic;
-    }
-    console.log('Productos cargados:', products.value);
+    // Combinar productos estáticos con los del backend
+    // Los productos del backend tendrán IDs mayores a 1000 para evitar conflictos
+    const productsFromDB = response.data || [];
+    
+    // Ajustar IDs de los productos del backend para evitar conflictos
+    const adjustedDBProducts = productsFromDB.map(p => ({
+      ...p,
+      id: p.id + 1000 // Offset para evitar conflictos con productos estáticos
+    }));
+    
+    // Combinar ambos arrays: estáticos primero, luego los de BD
+    products.value = [...productsStatic, ...adjustedDBProducts];
+    
+    console.log('Productos cargados:', products.value.length, 'total');
+    console.log('- Estáticos:', productsStatic.length);
+    console.log('- Base de datos:', productsFromDB.length);
   } catch (err) {
-    // En caso de error, usar productos estáticos
-    error.value = 'Usando productos de ejemplo';
-    console.log('Error al cargar productos del backend, usando estáticos:', err);
+    // En caso de error, usar solo productos estáticos
+    error.value = 'Usando solo productos de ejemplo (error al conectar con BD)';
+    console.log('Error al cargar productos del backend, usando solo estáticos:', err);
     products.value = productsStatic;
   } finally {
     loading.value = false;
@@ -403,72 +411,10 @@ const getRecommendations = (ids) => (!ids ? [] : products.value.filter(p => ids.
     </v-alert>
 
     <v-row v-if="!loading">
-      
-      <v-col cols="12" md="3" lg="2" class="pr-md-6">
-        
-        <div class="mb-8">
-          <h4 class="text-subtitle-2 font-weight-bold mb-3">Etiquetas</h4>
-          <v-chip-group column>
-            <v-chip 
-              v-for="key in selectedKeywords" 
-              :key="key"
-              closable 
-              variant="outlined" 
-              size="small" 
-              class="text-capitalize"
-            >
-              {{ key }}
-            </v-chip>
-          </v-chip-group>
-        </div>
-=======
-]);
-
-// --- 4. LÓGICA DE FILTRADO AVANZADA ---
-const filteredProducts = computed(() => {
-  let result = products.value.filter(p => {
-
-    // A. Búsqueda por Texto (Nombre)
-    const matchSearch = p.name.toLowerCase().includes(searchQuery.value.toLowerCase());
-
-    // B. Filtro Precio
-    const matchPrice = p.price >= priceRange.value[0] && p.price <= priceRange.value[1];
-
-    // C. Filtro Tamaño
-    const matchSize = selectedSizes.value.length === 0 || (p.sizes && p.sizes.some(s => selectedSizes.value.includes(s)));
-
-    // D. Filtro Etiquetas
-    const matchTags = selectedTags.value.length === 0 || (p.tags && p.tags.some(t => selectedTags.value.includes(t)));
-
-    // E. Filtro COLORES
-    const matchColor = selectedColors.value.length === 0 ||
-      (p.ecoBadges && p.ecoBadges.some(c => selectedColors.value.includes(c)));
-
-    return matchSearch && matchPrice && matchSize && matchTags && matchColor;
-  });
-
-  // Ordenamiento
-  if (sortOption.value === 'asc') result.sort((a, b) => a.price - b.price);
-  else if (sortOption.value === 'desc') result.sort((a, b) => b.price - a.price);
-  else if (sortOption.value === 'rating') result.sort((a, b) => b.rating - a.rating);
-  else result.sort((a, b) => b.id - a.id);
-
-  return result;
-});
-
-// --- FUNCIONES ---
-const openProductDetail = (p) => { selectedProduct.value = p; showProductDialog.value = true; };
-const addToCart = (p) => {
-  const item = p || selectedProduct.value;
-  if (item) { cart.addItem({ ...item }); if (showProductDialog.value) showProductDialog.value = false; }
-};
-const getRecommendations = (ids) => (!ids ? [] : products.value.filter(p => ids.includes(p.id)));
-</script>
-
-<template>
+      <!-- Removed broken code block -->
+    </v-row>
+  </v-container>
   <v-container fluid class="bg-white py-8" theme="light">
->>>>>>> origin/main
-
     <v-row align="center" class="mb-6">
 
       <v-col>
@@ -512,7 +458,7 @@ const getRecommendations = (ids) => (!ids ? [] : products.value.filter(p => ids.
           <v-col cols="12" md="3">
             <h4 class="text-subtitle-2 font-weight-bold mb-2">Rango de Precio</h4>
             <div class="text-caption mb-1">${{ priceRange[0] }} - ${{ priceRange[1] }}</div>
-            <v-range-slider v-model="priceRange" max="100" min="0" step="5" thumb-size="14" track-color="grey-lighten-2"
+            <v-range-slider v-model="priceRange" max="100000" min="0" step="500" thumb-size="14" track-color="grey-lighten-2"
               track-fill-color="forest" thumb-color="forest" hide-details></v-range-slider>
           </v-col>
 
@@ -552,8 +498,8 @@ const getRecommendations = (ids) => (!ids ? [] : products.value.filter(p => ids.
         <v-card flat class="product-card cursor-pointer h-100 d-flex flex-column" @click="openProductDetail(product)">
           <v-sheet color="grey-lighten-4" height="280"
             class="d-flex align-center justify-center mb-3 rounded-lg position-relative overflow hidden">
-            <img :src="product.image" alt="Imagen del producto" class="w-100 h-100" style="object-fit: cover;">
-            <!-- <v-icon :icon="product.image" size="80" color="grey-lighten-1"></v-icon> -->
+            <img v-if="!product.image.startsWith('mdi-')" :src="product.image" alt="Imagen del producto" class="w-100 h-100" style="object-fit: cover;" />
+            <v-icon v-else :icon="product.image" size="80" color="grey-lighten-1"></v-icon>
             <v-btn icon="mdi-heart-outline" variant="text" size="small"
               class="position-absolute top-0 right-0 ma-2"></v-btn>
           </v-sheet>
@@ -595,8 +541,7 @@ const getRecommendations = (ids) => (!ids ? [] : products.value.filter(p => ids.
                 <v-sheet color="grey-lighten-4" height="400"
                   class="d-flex align-center justify-center rounded-lg overflow-hidden">
                   <img :src="selectedProduct.image" alt="Imagen del producto" class="w-100 h-100"
-                    style="object-fit: cover;">
-
+                    style="object-fit: cover;" />
                 </v-sheet>
               </v-col>
               <v-col cols="12" md="6" class="pl-md-6">

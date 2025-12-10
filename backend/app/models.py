@@ -25,7 +25,28 @@ class User(db.Model):
         return bcrypt.generate_password_hash(password).decode("utf-8")
     
     def check_password(self, password):
-        return bcrypt.check_password_hash(self.password, password)
+        """Validate password with backward compatibility.
+        If the stored password is legacy plain text, allow login once and
+        transparently upgrade it to a bcrypt hash.
+        """
+        try:
+            if bcrypt.check_password_hash(self.password, password):
+                return True
+        except Exception:
+            # If the stored value isn't a valid bcrypt hash, fall through
+            pass
+
+        # Legacy support: plain-text password stored in DB
+        if self.password == password:
+            # Upgrade to hashed password
+            self.password = self.generate_password(password)
+            try:
+                db.session.commit()
+            except Exception:
+                db.session.rollback()
+            return True
+
+        return False
 
     def serialize(self):
         # Concatenar nombre completo para el frontend
@@ -44,7 +65,7 @@ class User(db.Model):
 
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(120), nullable=False)
+    name = db.Column(db.String(120), nullable=False)
     description = db.Column(db.Text, nullable=False)
     price = db.Column(db.Float, nullable=False)
     stock = db.Column(db.Integer, default=0)
@@ -54,6 +75,9 @@ class Product(db.Model):
     materials = db.Column(db.String(500))
     origin = db.Column(db.String(200))
     emissions = db.Column(db.String(100))  # ej: "0.2kg CO2e"
+    tags = db.Column(db.String(500))  # JSON string con tags
+    sizes = db.Column(db.String(200))  # JSON string con tamaños
+    recommendations = db.Column(db.String(200))  # JSON string con IDs de productos recomendados
 
     manager_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
@@ -61,7 +85,7 @@ class Product(db.Model):
         import json
         return {
             "id": self.id,
-            "title": self.title,
+            "name": self.name,
             "description": self.description,
             "price": self.price,
             "stock": self.stock,
@@ -71,6 +95,9 @@ class Product(db.Model):
             "materials": self.materials,
             "origin": self.origin,
             "emissions": self.emissions,
+            "tags": json.loads(self.tags) if self.tags else [],
+            "sizes": json.loads(self.sizes) if self.sizes else [],
+            "recommendations": json.loads(self.recommendations) if self.recommendations else [],
             "manager_id": self.manager_id
         }
 
@@ -83,7 +110,7 @@ def manager_required(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         user_id = get_jwt_identity()
-        user = User.query.get(user_id)
+        user = User.query.get(int(user_id))
         
         if not user or user.role != "admin":
             return jsonify({"error": "Acceso denegado. Solo administradores."}), 403

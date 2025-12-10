@@ -11,7 +11,7 @@ const userName = computed(() => {
 
 // Form data
 const formData = ref({
-  title: '',
+  name: '',
   description: '',
   price: 0,
   stock: 0,
@@ -19,7 +19,9 @@ const formData = ref({
   materials: '',
   origin: '',
   emissions: '',
-  ecoBadges: []
+  ecoBadges: [],
+  tags: [],
+  sizes: []
 })
 
 const imagePreview = ref('')
@@ -35,6 +37,16 @@ const ecoBadgeOptions = [
   { name: 'Comercio Justo', color: '#C8E8FF' }
 ]
 
+// Opciones de categorías/tags
+const tagOptions = [
+  'Baño', 'Ropa', 'Cocina', 'Oficina', 'Tecnología', 
+  'Viaje', 'Zero Waste', 'Juguetes', 'Arena', 'Gatos', 
+  'Perros', 'Aseo'
+]
+
+// Opciones de tallas
+const sizeOptions = ['XS', 'S', 'M', 'L', 'XL']
+
 function loadImageFromUrl() {
   if (formData.value.image) {
     imagePreview.value = formData.value.image
@@ -47,7 +59,7 @@ async function handleSubmit() {
   
   try {
     const response = await api.post('/products', {
-      title: formData.value.title,
+      name: formData.value.name,
       description: formData.value.description,
       price: parseFloat(formData.value.price),
       stock: parseInt(formData.value.stock),
@@ -56,6 +68,9 @@ async function handleSubmit() {
       origin: formData.value.origin,
       emissions: formData.value.emissions,
       ecoBadges: formData.value.ecoBadges,
+      tags: formData.value.tags,
+      sizes: formData.value.sizes,
+      recommendations: [],
       rating: 0
     })
     
@@ -77,7 +92,7 @@ async function handleSubmit() {
 
 function resetForm() {
   formData.value = {
-    title: '',
+    name: '',
     description: '',
     price: 0,
     stock: 0,
@@ -85,7 +100,9 @@ function resetForm() {
     materials: '',
     origin: '',
     emissions: '',
-    ecoBadges: []
+    ecoBadges: [],
+    tags: [],
+    sizes: []
   }
   imagePreview.value = ''
 }
@@ -173,7 +190,7 @@ function resetForm() {
                       <v-col cols="12" md="6">
                         <p class="font-weight-bold">Nombre producto *</p>
                         <v-text-field 
-                          v-model="formData.title"
+                          v-model="formData.name"
                           class="custom-input"
                           placeholder="Nombre del producto (Por ejemplo: 'Camiseta Ecoamigable')"
                           required
@@ -254,6 +271,38 @@ function resetForm() {
                         >
                           <template v-slot:chip="{ item }">
                             <v-chip :color="item.value" text-color="white">{{ item.title }}</v-chip>
+                          </template>
+                        </v-select>
+                      </v-col>
+
+                      <v-col cols="12" md="6">
+                        <p class="font-weight-bold">Categorías/Tags</p>
+                        <v-select
+                          v-model="formData.tags"
+                          :items="tagOptions"
+                          multiple
+                          chips
+                          placeholder="Selecciona categorías"
+                          class="custom-input"
+                        >
+                          <template v-slot:chip="{ item }">
+                            <v-chip>{{ item.title }}</v-chip>
+                          </template>
+                        </v-select>
+                      </v-col>
+
+                      <v-col cols="12" md="6">
+                        <p class="font-weight-bold">Tallas disponibles</p>
+                        <v-select
+                          v-model="formData.sizes"
+                          :items="sizeOptions"
+                          multiple
+                          chips
+                          placeholder="Selecciona tallas"
+                          class="custom-input"
+                        >
+                          <template v-slot:chip="{ item }">
+                            <v-chip>{{ item.title }}</v-chip>
                           </template>
                         </v-select>
                       </v-col>

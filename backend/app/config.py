@@ -1,7 +1,0 @@
-import os
-
-class Config:
-    SECRET_KEY = "CLAVE_SUPER_SECRETA"
-    SQLALCHEMY_DATABASE_URI = "sqlite:///data.db"
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
-    JWT_SECRET_KEY = "CLAVE_SUPER_SECRETA"

@@ -1,61 +1,43 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, computed } from 'vue'
+import api from '@/api'
+import { products as staticProducts } from '@/data/products'
 
-const products = ref([
-  {
-    id: 1,
-    title: "Cepillo de dientes de bambú",
-    price: 20,
-    rating: 3.5,
-    image: "mdi-toothbrush",
-    ecoBadge: ["#375A0A", "#E6E851"]
-  },
-  { 
-    id: 2, 
-    title: "Camiseta de Algodón Orgánico",
-    price: 25.00, 
-    rating: 5,
-    image: "mdi-tshirt-crew", 
-    ecoBadge: ['#375A0A'] 
-  },
-  { 
-    id: 3, 
-    title: "Botella de Vidrio Reciclado", 
-    price: 18.00, 
-    rating: 4,
-    image: "mdi-bottle-wine", 
-    ecoBadge: [] 
-  },
-  { 
-    id: 4, 
-    title: "Cuaderno Ecológico", 
-    price: 15.00, 
-    rating: 4.8,
-    image: 'mdi-notebook', 
-    ecoBadge: ['#375A0A'] 
-  },
-  { 
-    id: 5, 
-    title: "Batería Solar", 
-    price: 45.00, 
-    rating: 4.2,
-    image: 'mdi-battery-charging', 
-    ecoBadge: ['#E6EB51'] 
-  },
-  { 
-    id: 6, 
-    title: "Mochila de Cáñamo", 
-    price: 60.00, 
-    rating: 4.9,
-    image: "mdi-bag-personal", 
-    ecoBadge: ['#375A0A', '#010101'] 
-  }
-])
-
+const products = ref([])
 const currentSlide = ref(0)
+const loading = ref(false)
+
+// Cargar productos desde el catálogo (combinar estáticos con BD)
+async function loadProducts() {
+  loading.value = true
+  try {
+    const response = await api.get('/products')
+    const productsFromDB = response.data || []
+    
+    // Combinar productos estáticos con los de BD
+    const allProducts = [...staticProducts.value, ...productsFromDB]
+    
+    // Tomar los primeros 12 productos
+    products.value = allProducts.slice(0, 12)
+    
+    console.log('Productos cargados en carrusel:', products.value.length)
+  } catch (err) {
+    console.error('Error al cargar productos para el carrusel:', err)
+    // Usar solo productos estáticos si hay error
+    products.value = staticProducts.value.slice(0, 12)
+  } finally {
+    loading.value = false
+  }
+}
+
+onMounted(() => {
+  loadProducts()
+})
+
+const maxSlides = computed(() => Math.max(0, Math.ceil(products.value.length / 4) - 1))
 
 function nextSlide() {
-  if (currentSlide.value < Math.ceil(products.value.length / 4) - 1) {
+  if (currentSlide.value < maxSlides.value) {
     currentSlide.value++
   }
 }
@@ -87,7 +69,12 @@ function prevSlide() {
 
           <!-- Productos Carousel -->
           <div class="carousel-wrapper">
-            <v-sheet class="carousel-track" :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
+            <v-sheet v-if="loading" class="text-center pa-8">
+              <v-progress-circular indeterminate color="primary"></v-progress-circular>
+              <p class="mt-2">Cargando productos...</p>
+            </v-sheet>
+            
+            <v-sheet v-else class="carousel-track" :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
               <div 
                 v-for="product in products"
                 :key="product.id"
@@ -99,7 +86,11 @@ function prevSlide() {
                     height="220"
                     class="d-flex align-center justify-center mb-3 rounded-lg position-relative"
                   >
-                    <v-icon :icon="product.image" size="60" color="grey-lighten-1"></v-icon>
+                    <!-- Si la imagen es un icono MDI -->
+                    <v-icon v-if="product.image?.startsWith('mdi-')" :icon="product.image" size="60" color="grey-lighten-1"></v-icon>
+                    <!-- Si es una URL de imagen -->
+                    <v-img v-else :src="product.image" cover height="220"></v-img>
+                    
                     <v-btn 
                       icon="mdi-heart-outline" 
                       variant="text" 
@@ -110,7 +101,7 @@ function prevSlide() {
 
                   <div class="px-2 pb-3">
                     <div class="text-body-2 font-weight-medium text-truncate mb-1">
-                      {{ product.title }}
+                      {{ product.name }}
                     </div>
                     
                     <div class="d-flex justify-space-between align-center">
@@ -120,7 +111,7 @@ function prevSlide() {
                       
                       <div class="d-flex align-center">
                         <v-icon 
-                          v-for="(badgeColor, i) in product.ecoBadge" 
+                          v-for="(badgeColor, i) in product.ecoBadges" 
                           :key="i" 
                           icon="mdi-circle" 
                           size="x-small" 
