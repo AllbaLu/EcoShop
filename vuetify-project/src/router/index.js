@@ -9,6 +9,7 @@ import ProductSectionView from '@/views/ProductSectionView.vue'
 import ProductDetailView from '@/views/ProductDetailView.vue'
 import PanelAdminView from '@/views/PanelAdminView.vue'
 import { useAuthStore } from '@/stores/auth'
+import ContactView from '@/views/ContactView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -47,6 +48,11 @@ const router = createRouter({
       path: '/paneladmin',
       name: 'PanelAdminView',
       component: () => import('@/views/PanelAdminView.vue')
+    },
+    {
+      path: '/contacto',
+      name: 'contactoview',
+      component: ContactView
     }
   ],
 })

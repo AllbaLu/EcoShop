@@ -90,7 +90,7 @@ const redes = [
                             <v-list-item>Avenida Las Torres N°55,
                                 <br>Buenos Aires,</br>
                                 <br>Argentina</br> </v-list-item>
-                            <v-list-item>+56 9 1234 5678</v-list-item>
+                            <v-list-item>+54 9 1234 5678</v-list-item>
                             <v-list-item>contacto@ecoshop.com</v-list-item>
                         </v-list>
 
