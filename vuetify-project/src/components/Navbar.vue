@@ -67,7 +67,7 @@ function toggleAdminRole() {
     <v-btn text class="bg-white" :to="{ name: 'sellosview' }">Sellos</v-btn>
     <v-btn text class="bg-white" :to="{ name: 'blogview' }">Blog</v-btn>
     <v-btn text class="bg-white" :to="{ name: 'productsectionview'}">Catálogo Productos</v-btn>
-    <v-btn text class="bg-white">Contacto</v-btn>
+    <v-btn text class="bg-white" :to="{ name: 'contactoview' }">Contacto</v-btn>
 
     <!-- DEBUG: Mostrar estado actual + botón para cambiar role temporalmente -->
     <div v-if="isLoggedIn" class="d-flex align-center mx-2">
