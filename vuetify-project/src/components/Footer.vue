@@ -77,6 +77,45 @@ const redes = [
                                 <v-btn class="text-body-2" color="#E6EB51" type="submit" block>
                                     SUSCRIBIR
                                 </v-btn>
+                                 <v-snackbar v-model="snackbar" color="success" timeout="3000">
+      ¡Mensaje enviado correctamente! Te responderemos pronto.
+      <template v-slot:actions>
+        <v-btn variant="text" @click="snackbar = false">Cerrar</v-btn>
+      </template>
+    </v-snackbar>
+
+    <!-- NEWSLETTER
+<v-btn
+              block
+              color="primary"
+              size="large"
+              type="submit"
+              class="mt-4 text-white"
+              :disabled="!valid"
+            >
+              Enviar Mensaje
+            </v-btn>
+          </v-form>
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <v-snackbar v-model="snackbar" color="success" timeout="3000">
+      ¡Mensaje enviado correctamente! Te responderemos pronto.
+      <template v-slot:actions>
+        <v-btn variant="text" @click="snackbar = false">Cerrar</v-btn>
+      </template>
+    </v-snackbar> 
+ -->
+
+
+
+
+
+
+
+
+
                             </v-form>
                         </v-list>
                     </v-sheet>
@@ -90,7 +129,7 @@ const redes = [
                             <v-list-item>Avenida Las Torres N°55,
                                 <br>Buenos Aires,</br>
                                 <br>Argentina</br> </v-list-item>
-                            <v-list-item>+54 9 1234 5678</v-list-item>
+                            <v-list-item>+54 9 11 1234 5678</v-list-item>
                             <v-list-item>contacto@ecoshop.com</v-list-item>
                         </v-list>
 
