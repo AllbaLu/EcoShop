@@ -1,375 +1,168 @@
-# EcoShop E-commerce Platform
-Plataforma web de comercio electrónico sostenible
+# 🌿 EcoShop E-commerce Platform
 
-## Descripción general
+**Plataforma de comercio electrónico sostenible con trazabilidad de impacto ambiental.**
 
-Plataforma de e-commerce sostenible que integra indicadores de impacto ambiental por producto (huella de carbono, materiales reciclables, transporte, etc.), fomenta la trazabilidad y ofrece una experiencia de usuario fluida y moderna.
+EcoShop es una solución de e-commerce diseñada para marcas conscientes que buscan no solo vender productos, sino educar y comunicar el impacto ambiental de cada compra. La plataforma integra indicadores de huella de carbono, certificaciones ecológicas y un sistema de gestión transparente.
 
-Está hecha para aquellas marcas sostenibles que buscan plataformas de e-commerce que no solo vendan productos, sino que también midan, visualicen y comuniquen el impacto ambiental de cada compra.
+---
 
-EcoShop E-commerce Platform es una tienda online ecológica, con un enfoque educativo y transparente, que busca fortalecer la confianza de los consumidores y promover decisiones de compra responsables.
+## 🚀 Características Principales
 
+### 🛒 Experiencia de Compra (Cliente)
+- **Catálogo Inteligente**: Visualización de productos con filtros por precio, etiquetas y ordenamiento.
+- **Indicadores de Impacto**: Cada producto muestra su huella de carbono, materiales, origen y sellos ecológicos.
+- **Sistema de Recomendaciones**: Sugerencias de productos basadas en etiquetas y categorías relacionadas.
+- **Carrito de Compras**: Gestión de items con cálculo automático de totales.
+- **Pasarela de Pago (Simulación)**: Integración con Mercado Pago que incluye un **Resumen de Impacto**, mostrando el total de CO2 compensado y los sellos adquiridos en la compra.
+- **Sección de Certificaciones**: Explorador de sellos (Cruelty Free, Carbon Neutral, etc.) con funcionalidad para ver todos los productos asociados a cada certificación.
+- **Blog Educativo**: Artículos sobre sostenibilidad y cuidado del medio ambiente.
 
-## Estado del proyecto
+### 🛠️ Panel de Administración (Backoffice)
+- **Gestión de Productos**: Formulario para agregar nuevos productos con detalles técnicos (emisiones, materiales, sellos).
+- **Base de Datos Híbrida**: Visualización unificada de productos estáticos y productos dinámicos (base de datos).
+- **Eliminación de Productos**: Funcionalidad para borrar productos de la base de datos (requiere rol de Administrador).
+- **Dashboard**: Vista rápida de conteo de productos y estado del inventario.
 
-En desarrollo
+### 🔐 Seguridad y Autenticación
+- **Login/Registro**: Sistema de autenticación seguro con JWT (JSON Web Tokens).
+- **Roles de Usuario**: Diferenciación entre usuarios clientes y administradores.
+- **Protección de Rutas**: El panel de administración es accesible solo para usuarios con rol `admin`.
 
-Última actualización: 04 de diciembre de 2025
+---
 
-Versión: 0.0
+## 💻 Tecnologías Utilizadas
 
-## Características principales
+### Frontend
+- **Framework**: Vue 3 (Composition API)
+- **UI Library**: Vuetify 3
+- **Estado Global**: Pinia (Módulos: Auth, Cart, Filter)
+- **Routing**: Vue Router
+- **HTTP Client**: Axios (con interceptores para JWT)
+- **Build Tool**: Vite
 
-- Catálogo de productos ecológicos con indicadores ambientales.
-- Sistema de Sellos y Eco-Badges.
-- Módulo de cálculo de huella de carbono por producto.
-- Recomendaciones basadas en impacto ambiental.
-- Panel de administración (productos, precios, imágenes, etc.).
-- Blog educativo sobre sostenibilidad.
-- Interfaz modular hecha con Vue + Vuetify.
-- Backend con API REST en Flask + PostgreSQL.
-- Arquitectura limpia y escalable.
+### Backend
+- **Framework**: Flask (Python)
+- **ORM**: SQLAlchemy
+- **Base de Datos**: SQLite (Entorno de desarrollo)
+- **Autenticación**: Flask-JWT-Extended
+- **Migraciones**: Flask-Migrate
 
-## Estructura del proyecto
+---
 
-```
-backend/
-   ├── src/
-   │   ├── models/
-   │   ├── routes/
-   │   ├── middlewares/
-   │   └── app.py
-   ├── config/
-   ├── tests/
-   └── requirements.txt
+## 📖 Manual de Instalación y Ejecución
 
-frontend/
-   src/
-   │
-   ├── assets/ # Imágenes, iconos, fondos
-   ├── components/ # Componentes reutilizables
-   │ ├── Navbar.vue
-   │ ├── Footer.vue
-   │ ├── CartDrawer.vue
-   │ ├── BlogPost.vue
-   │ └── ...
-   │
-   ├── views/ # Vistas principales
-   │ ├── HomeView.vue
-   │ ├── BlogView.vue
-   │ ├── BlogDetailView.vue
-   │ ├── SellosView.vue
-   │ ├── ProductSectionView.vue
-   │ └── ProductDetailView.vue
-   │
-   ├── stores/ # Pinia stores
-   │ ├── useCartStore.js
-   │ └── auth.js
-   │
-   ├── plugins/
-   │ ├── vuetify.js # Configuración del tema EcoShop
-   │ └── index.js # Registro de plugins
-   │
-   ├── router/
-   │ └── index.js # Configuración de rutas
-   │
-   ├── App.vue
-   └── main.js
-```
+Sigue estos pasos para levantar el proyecto en tu entorno local.
 
-### Arquitectura General: Backend + Frontend + Base de Datos
-
-#### Frontend:
-- Vite
-- Vue 3 (Composition API)
-- Vuetify 3 (Componentes UI)
-- Componentes UI personalizados
-- Pinia (manejo de estado global)
-- Vue Router
-- Material Design Icons
-- Unplugin Fonts + Fontsource Roboto
-
-#### Backend:
-- Python
-- Flask Bases de Datos
-- PostgreSQL
-- Relaciones
-- Modelos, rutas, servicios y controladores
-
-## Tema personalizado
-EcoShop utiliza un tema propio, que se carga automáticamente mediante vuetify.js, basado en colores inspirados en naturaleza y sostenibilidad:
-
-- background: #F1FFFF -  Azul muy pálido para fondo general
-- surface: #FFFFFF - Blanco puro para tarjetas
-- primary: #375A0A - Verde Bosque para botones principales y Headers
-- secondary: #C8E8FF - Azul Cielo para botones secundarios e iconos
-- accent: #E6EB51 - Lima para ofertas, badges y Call to Action
-- info: #010101 - Negro para textos
-
-## Estado global (Pinia)
-### Carrito de compras — ```useCartStore.js```
-- Agregar productos
-- Aumentar/disminuir cantidades
-- Remover items
-- Cálculo de total y cantidad total
-- Apertura automática del drawer del carrito al agregar un producto
-
-### Autenticación — auth.js
-- Login con persistencia de token
-- Logout
-- Manejo de usuario autenticado
-
-## Rutas principales (Vue Router)
-| Ruta                 | Vista               | Descripción                               |
-|----------------------|---------------------|-------------------------------------------|
-| `/`                  | HomeView            | Página principal con slider hero          |
-| `/blog`              | BlogView            | Listado de artículos                      |
-| `/blogdetail/:id`    | BlogDetailView      | Vista de blog individual                  |
-| `/sellos`            | SellosView          | Información de certificaciones sostenibles|
-| `/product-section`   | ProductSectionView  | Listado de productos                      |
-| `/product/:id`       | ProductDetailView   | Ficha completa de producto                |
-
-
-## Componentes
-
-### Navbar + Drawer del carrito
-- Incluye badge dinámico con cantidad total de productos
-
-### Carrusel Hero (Home)
-- Con autoplay accesible
-- Botón de pausar/reproducir
-- Overlays dinámicos según cada slide
-- Flechas visibles al interactuar (hover/touch)
-
-
-## Accesibilidad
-El proyecto implementa:
-- Botón accesible para pausar autoplay del carrusel
-- aria-label en flechas y botones interactivos
-- Preferencias de usuario: desactiva autoplay si el sistema pide *reduced motion*
-- Contrastes revisados con tema EcoShop
-
-
-## REFERENCIA DE LO QUE HAY QUE HACER -->
-
-Navbar / Header
-
-User
-
-Adm
-
-Login
-
-Logout
-
-Section – Buscador
-
-Buscador: [Título] [Guardar]
-
-Filtros inteligentes
-
-Carrusel – Información destacada
-
-Section – Catálogo de productos
-
-Cards (por producto):
-
-Materiales
-
-Origen
-
-Emisiones
-
-Eco-badges
-
-Sistema de recomendaciones
-
-Section – Sello
-
-Logos
-
-Marcas
-
-Etiquetas
-
-Blog
-
-Historias
-
-Contenido educativo
-
-Certificaciones
-
-Footer
-
-Redes sociales
-
-Logo
-
-Links relacionados
-
-Adicional
-
-Carrito de compra
-
-Pasarela de pago
-
-Módulo de cálculo de huella de carbono
-
-Reportes: ahorro de carbono por compra
-
-Panel Administrador
-
-Agregar nuevo producto (formulario)
-
-Actualizar precios
-
-Actualizar imágenes
-
-Actualizar links
-
-Borrar producto(s)
-
-## <-- REFERENCIA DE LO QUE HAY QUE HACER
-
-
-
-
-
-## Instalación / Configuración
-
-1. Clonar repositorio
-```
-git clone https://github.com/usuario/EcoShop.git
-```
-
-2. Instalar dependencias
-- Frontend
-```
-cd vuetify-project
-npm install
-```
-## REVISAR BACKEND
-- Backend
-```
-cd backend
-pip install -r requirements.txt
-```
-3. Variables de entorno
-Configurar archivo .env en backend:
-```
-DATABASE_URL=postgresql://user:password@localhost:5432/ecoshop
-SECRET_KEY=tu_clave
-```
-
-4. Ejecutar el proyecto
-- Frontend
-```
-npm run dev
-```
-- Backend
-```
-python src/app.py
-```
-
-Instalar dependencias
-
-Configurar variables
-
-Levantar el proyecto
-
-(Si no es software, puede ser: pasos para abrir el documento, uso de archivos base, etc.)
-
-## Uso
-Ejemplos simples:
-
-Ingresar a la raíz:
-```
-http://localhost:3000/
-```
-
-Panel Administrador (pendiente):
-```
-/admin
-```
-
-API Backend (ejemplo):
-```
-GET /api/products
-```
-
-
-
-
-
-Ejemplos simples de:
-
-Cómo se utiliza
-
-Comandos principales
-
-Cómo interactuar con el proyecto
-
-## Requisitos
-
-- Node.js 18+
-- Python 3.10+
-- PostgreSQL 14+
-- Navegador moderno
+### Prerrequisitos
+- Node.js (v18 o superior)
+- Python (v3.10 o superior)
 - Git
 
-Dependencias, versiones mínimas, herramientas necesarias.
+### 1. Clonar el Repositorio
+```bash
+git clone https://github.com/No-Country/s11-25-t-webapp.git
+cd EcoShop
+```
 
-## Contribución (opcional)
+### 2. Configuración del Backend (Servidor)
+```bash
+cd backend
 
-Si otras personas pueden colaborar:
+# Crear entorno virtual
+python -m venv venv
 
-Lineamientos
+# Activar entorno virtual
+# Windows:
+venv\Scripts\activate
+# Mac/Linux:
+source venv/bin/activate
 
-Estilo de código
+# Instalar dependencias
+pip install -r requirements.txt
 
-Flujo de trabajo (branches, PRs, etc.)
+# Inicializar base de datos (si es la primera vez)
+flask db upgrade
+# O si usas el script de creación de tablas directo:
+python -c "from app import create_app, db; app = create_app(); app.app_context().push(); db.create_all()"
 
-## Licencia
+# Crear usuario administrador por defecto
+python scripts/create_admin.py
 
-Proyecto privado/académico. Todos los derechos reservados
+# Ejecutar servidor
+python run.py
+```
+*El servidor correrá en `http://localhost:5000`*
 
-## Autores / Créditos
+### 3. Configuración del Frontend (Cliente)
+Abrir una nueva terminal en la raíz del proyecto:
+```bash
+cd vuetify-project
 
-No Country - 2025
-**S11-25-Equipo 62-WebApp**
+# Instalar dependencias
+npm install
 
-- Alba Rodríguez - Full Stack Developer
-- Fabián Jeldes - Frontend Developer
-- María Teresa de la Fuente - Frontend Developer
-- Tiziano Caamano - Frontend Developer
-- Agustín Prato - Frontend Developer
+# Ejecutar entorno de desarrollo
+npm run dev
+```
+*La aplicación estará disponible en `http://localhost:3000` (o el puerto que indique Vite).*
 
+---
 
-## Contacto
+## 📚 Guía de Uso
 
-grupoecoshop@gmail.com
+### 👤 Para Clientes
+1. **Explorar**: Navega por la "Tienda" para ver productos. Usa los filtros para encontrar lo que buscas.
+2. **Detalles**: Haz clic en un producto para ver su ficha técnica, huella de carbono y recomendaciones.
+3. **Sellos**: Visita la sección "Sellos" para entender las certificaciones. Haz clic en "Mostrar productos relacionados" para ver qué artículos tienen ese sello.
+4. **Compra**: Agrega productos al carrito. Al finalizar, verás el resumen de tu impacto ambiental antes de proceder al pago con Mercado Pago.
 
-## Notas o consideraciones especiales
+### 🛡️ Para Administradores
+1. **Acceso**: Ve a "Iniciar Sesión".
+2. **Credenciales por defecto**:
+   - **Email**: `admin@ecoshop.local`
+   - **Contraseña**: `admin123`
+3. **Panel**: Una vez logueado como admin, aparecerá la opción "Panel Admin" en el menú.
+4. **Gestión**:
+   - Usa el formulario para cargar nuevos productos (imágenes vía URL o MDI icons).
+   - En la lista inferior, puedes eliminar productos creados (los productos estáticos de demostración no se pueden borrar desde el panel).
 
-- Proyecto en fase inicial.
-- Algunas vistas y módulos están en construcción.
+---
 
-- Próximas mejoras:
+## 📂 Estructura del Proyecto
 
-   - Autenticación completa
-   - Dashboard Admin
-   - Filtros avanzados del catálogo
-   - Métricas ambientales gráficas
-   - Blog funcional
-   - Integración con pasarela de pago real
+```
+EcoShop/
+├── backend/                 # API REST Flask
+│   ├── app/
+│   │   ├── models.py        # Modelos de Base de Datos (User, Product)
+│   │   ├── routes.py        # Endpoints de la API
+│   │   └── ...
+│   ├── scripts/             # Scripts de utilidad (create_admin.py)
+│   └── ecoshop.db           # Base de datos SQLite
+│
+├── vuetify-project/         # Aplicación Vue.js
+│   ├── src/
+│   │   ├── api.js           # Configuración Axios
+│   │   ├── components/      # Componentes (Hero, ProductSection, PanelAdmin...)
+│   │   ├── data/            # Datos estáticos (products.js, certifications.js)
+│   │   ├── stores/          # Estado Pinia (auth, cart, filter)
+│   │   ├── views/           # Vistas (Home, ProductDetail, Admin...)
+│   │   └── ...
+│   └── ...
+└── README.md                # Documentación
+```
 
-Cualquier información adicional relevante:
+---
 
-Limitaciones
+## 👥 Equipo de Desarrollo
+**No Country - Cohorte S11-25 - Equipo 62**
 
-Supuestos
+- **Alba Rodríguez** - Full Stack Developer
+- **Fabián Jeldes** - Frontend Developer
+- **María Teresa de la Fuente** - Frontend Developer
+- **Tiziano Caamano** - Frontend Developer
+- **Agustín Prato** - Frontend Developer
 
-Roadmap
+---
 
-Próximas mejoras
+© 2025 EcoShop. Todos los derechos reservados.
