@@ -60,7 +60,7 @@ Sigue estos pasos para levantar el proyecto en tu entorno local.
 
 ### 1. Clonar el Repositorio
 ```bash
-git clone https://github.com/No-Country/s11-25-t-webapp.git
+git clone -b main-2 https://github.com/AllbaLu/EcoShop.git
 cd EcoShop
 ```
 
