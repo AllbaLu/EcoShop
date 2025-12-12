@@ -1,6 +1,25 @@
 <script setup>
 
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useFilterStore } from '@/stores/useFilterStore'
+import { getProductById } from '@/data/products'
+
+const router = useRouter()
+const filterStore = useFilterStore()
+
+const handleButtonClick = (slide) => {
+    if (slide.productId) {
+        const product = getProductById(slide.productId)
+        if (product) {
+            filterStore.productToOpen = product
+            router.push({ name: 'productsectionview' })
+        }
+    } else {
+        // Fallback if no product ID
+        router.push({ name: 'productsectionview' })
+    }
+}
 
 // Autoplay de carrusel para accesibilidad
 const autoPlay = ref(true)
@@ -46,6 +65,7 @@ const slides = [
         overlayWidth: '45%',
         overlayPadding: '2rem',
         fit: 'cover',
+        productId: 14,
         buttons: [
             { text: 'Ver más', color: 'accent' },  
         ]
@@ -59,6 +79,7 @@ const slides = [
         overlayWidth: '45%',
         overlayPadding: '2rem',
         fit: 'cover',
+        productId: 1,
         buttons: [
             { text: 'Ver más', color: 'secondary' },
         ]
@@ -72,19 +93,21 @@ const slides = [
         overlayWidth: '40%',
         overlayPadding: '2rem',
         fit: 'cover',
+        productId: 14,
         buttons: [
             { text: 'Ver más', color: 'accent' }, 
         ]
     },
     {
         image: new URL('@/assets/perro-tina3.jpg', import.meta.url).href,
-        title: "Cuidado natural para pieles sensibles",
+        title: "Cuidado y Aseo Natural",
         titleColor: '#C8E8FF', 
-        text: 'Shampoos y grooming sin químicos dañinos, biodegradables y suaves con su piel y el planeta.',
+        text: 'Accesorios de grooming y cuidado diseñados para el bienestar de tu mascota y el planeta.',
         overlayPosition: 'right',
         overlayWidth: '40%',
         overlayPadding: '2rem',
         fit: 'cover',
+        productId: 9,
         buttons: [
             { text: 'Ver más', color: 'secondary' },
         ]
@@ -98,6 +121,7 @@ const slides = [
         overlayWidth: '40%',
         overlayPadding: '2rem',
         fit: 'cover',
+        productId: 11,
         buttons: [
             { text: 'Ver más', color: 'accent' }, 
         ]
@@ -140,8 +164,10 @@ const slides = [
                 <!-- Imagen de fondo -->
                 <div class="hero-slide" 
                 role="img"
+                @click="handleButtonClick(slide)"
                 :aria-label="slide.title + '. ' + slide.text"
                 :style="`
+                cursor: pointer;
                 background-image: url(${slide.image});
                 background-size: ${slide.fit || 'cover'};
                 background-position: ${
@@ -177,7 +203,7 @@ const slides = [
                         </p>
 
                         <div class="d-flex ga-3">
-                            <v-btn v-for="(btn, j) in slide.buttons" :key="j" :color="btn.color" variant="outlined">
+                            <v-btn v-for="(btn, j) in slide.buttons" :key="j" :color="btn.color" variant="outlined" @click="handleButtonClick(slide)">
                                 {{ btn.text }}
                             </v-btn>
                         </div>

@@ -1,6 +1,13 @@
 <script setup>
+import { ref } from 'vue'
 import { useCartStore } from '@/stores/useCartStore'
+import PaymentGateway from '@/components/PaymentGateway.vue'
 const cart = useCartStore()
+const showPayment = ref(false)
+
+const finalizePurchase = () => {
+    showPayment.value = true
+}
 </script>
 
 <template>
@@ -50,14 +57,18 @@ const cart = useCartStore()
         <v-divider class="my-4"></v-divider>
 
         <div class="px-4 text-h6">
-            Total: $ {{ cart.total.toFixed(2) }}
+            Total: {{ new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', maximumFractionDigits: 0 }).format(Math.round(cart.total)) }}
         </div>
 
-        <div class="text-center">
-        <v-btn color="accent" class="btn-cart mt-4">
-            Finalizar compra
-        </v-btn>
-        </div>
+                <div class="text-center">
+                    <v-btn color="accent" class="btn-cart mt-4" :disabled="!cart.items.length" @click="finalizePurchase">
+                        Finalizar compra
+                    </v-btn>
+                </div>
+
+                <v-dialog v-model="showPayment" max-width="640">
+                    <PaymentGateway />
+                </v-dialog>
 
 
     </v-navigation-drawer>

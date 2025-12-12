@@ -3,6 +3,8 @@ from flask_jwt_extended import (
     create_access_token, jwt_required, get_jwt_identity
 )
 from datetime import timedelta
+import os
+import requests
 
 from .models import User, Product, manager_required
 from .extensions import db
@@ -155,3 +157,68 @@ def delete_product(id):
     db.session.commit()
 
     return jsonify({"message": "Producto eliminado"})
+
+
+# ================================
+#   MERCADO PAGO - Preferencias
+# ================================
+@api.route("/create_preference", methods=["POST"])
+def create_preference():
+    try:
+        data = request.json or {}
+        items = data.get("items", [])
+
+        # Access Token desde variables de entorno
+        access_token = os.getenv("MP_ACCESS_TOKEN")
+        if not access_token:
+            return jsonify({
+                "error": "Falta MP_ACCESS_TOKEN en entorno del servidor"
+            }), 500
+
+        # Mapear items al formato que espera MP
+        mp_items = []
+        for item in items:
+            # CLP sin decimales
+            price_clp = int(round(float(item.get("price", 0))))
+            mp_items.append({
+                "title": item.get("name", "Producto"),
+                "quantity": int(item.get("quantity", 1)),
+                "currency_id": "CLP",
+                "unit_price": price_clp
+            })
+
+        # Mercado Pago requiere URLs públicas o válidas y 'back_urls.success'.
+        # Para dev, mantenemos localhost, y eliminamos 'auto_return' para evitar el error.
+        preference_body = {
+            "items": mp_items,
+            "back_urls": {
+                "success": "http://localhost:3000/",
+                "failure": "http://localhost:3000/",
+                "pending": "http://localhost:3000/"
+            }
+        }
+
+        headers = {
+            "Authorization": f"Bearer {access_token}",
+            "Content-Type": "application/json"
+        }
+        resp = requests.post(
+            "https://api.mercadopago.com/checkout/preferences",
+            json=preference_body,
+            headers=headers,
+            timeout=20
+        )
+
+        if resp.status_code >= 300:
+            return jsonify({
+                "error": "Mercado Pago error",
+                "details": resp.json()
+            }), 500
+
+        pref = resp.json()
+        return jsonify({
+            "preference_id": pref.get("id"),
+            "init_point": pref.get("init_point")
+        }), 200
+    except Exception as e:
+        return jsonify({"error": f"Error creando preferencia: {str(e)}"}), 500

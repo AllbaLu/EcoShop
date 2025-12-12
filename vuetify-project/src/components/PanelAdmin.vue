@@ -1,7 +1,8 @@
 <script setup>
 import { useAuthStore } from '@/stores/auth'
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import api from '@/api_auth'
+import { products as staticProducts } from '@/data/products'
 
 const auth = useAuthStore()
 
@@ -29,6 +30,40 @@ const loading = ref(false)
 const success = ref(false)
 const error = ref('')
 const fileInput = ref(null) // Referencia para el input de archivo
+
+// Contadores de productos
+const staticCount = computed(() => staticProducts.value?.length || 0)
+const dbCount = ref(0)
+const dbProducts = ref([])
+
+async function fetchProducts() {
+  try {
+    const resp = await api.get('/products')
+    dbProducts.value = Array.isArray(resp.data) ? resp.data : []
+    dbCount.value = dbProducts.value.length
+  } catch (e) {
+    console.error('No se pudieron obtener productos de BD', e)
+    dbCount.value = 0
+    dbProducts.value = []
+  }
+}
+
+onMounted(async () => {
+  await fetchProducts()
+})
+
+async function deleteProduct(id) {
+  if (!confirm('¿Estás seguro de eliminar este producto?')) return
+  
+  try {
+    await api.delete(`/products/${id}`)
+    await fetchProducts() // Refresh list
+  } catch (e) {
+    console.error('Error al eliminar producto', e)
+    const msg = e.response?.data?.error || 'Error al eliminar producto'
+    alert(msg)
+  }
+}
 
 // Opciones de badges ecológicos
 const ecoBadgeOptions = [
@@ -99,6 +134,7 @@ async function handleSubmit() {
     setTimeout(() => {
       resetForm()
       success.value = false
+      fetchProducts() // Actualizar lista
     }, 2000)
     
   } catch (err) {
@@ -132,38 +168,44 @@ function resetForm() {
   <v-app>
     <v-app-bar app>
       <v-btn></v-btn>
-      <h3 class="ml-4 font-weight-bold">Buenos días, {{ userName }}. <br> Bienvenido al panel de administración</h3>
+      <h3 class="ml-4 font-weight-bold">Buenos días, {{ userName }} ({{ auth.user?.role }}). <br> Bienvenido al panel de administración</h3>
       <v-spacer />
     </v-app-bar>
 
     <v-main>
       <v-container>
-        <v-row class="mb-8" cols="8" md="8"> 
-          <v-col cols="12" md="4">
-            <v-img
-              src="https://cdn.pixabay.com/photo/2016/04/21/22/02/aerial-view-1344591_1280.jpg" 
-              cover
-              class="bg-grey-lighten-2 rounded-lg hover-card cursor-pointer mb-4"
-              aspect-ratio="2">
-            </v-img>
-          </v-col>
+        <v-row class="mb-8">
+          <v-col cols="12">
+            <v-card class="pa-6" elevation="4">
+              <div class="d-flex flex-wrap align-center justify-space-between">
+                <div class="d-flex align-center mb-4">
+                  <v-icon class="mr-2" color="forest">mdi-database</v-icon>
+                  <div>
+                    <div class="text-h6 font-weight-bold">Productos en Base de Datos</div>
+                    <div class="text-subtitle-1">{{ dbCount }}</div>
+                  </div>
+                </div>
 
-          <v-col cols="12" md="4">
-            <v-img
-              src="https://cdn.pixabay.com/photo/2016/04/21/22/02/aerial-view-1344591_1280.jpg" 
-              cover
-              class="bg-grey-lighten-2 rounded-lg hover-card cursor-pointer mb-4"
-              aspect-ratio="2">
-            </v-img>
-          </v-col>
+                <div class="d-flex align-center mb-4">
+                  <v-icon class="mr-2" color="primary">mdi-file-table</v-icon>
+                  <div>
+                    <div class="text-h6 font-weight-bold">Productos Estáticos (data/products.js)</div>
+                    <div class="text-subtitle-1">{{ staticCount }}</div>
+                  </div>
+                </div>
 
-          <v-col cols="12" md="4">
-            <v-img
-              src="https://cdn.pixabay.com/photo/2016/04/21/22/02/aerial-view-1344591_1280.jpg" 
-              cover
-              class="bg-grey-lighten-2 rounded-lg hover-card cursor-pointer mb-4"
-              aspect-ratio="2">
-            </v-img>
+                <div class="d-flex align-center mb-4">
+                  <v-icon class="mr-2" color="success">mdi-counter</v-icon>
+                  <div>
+                    <div class="text-h6 font-weight-bold">Total Disponible</div>
+                    <div class="text-subtitle-1">{{ staticCount + dbCount }}</div>
+                  </div>
+                </div>
+              </div>
+              <v-alert type="info" variant="tonal" class="mt-4">
+                Esta sección resume cuántos productos se reciben de forma estática y cuántos desde la base de datos.
+              </v-alert>
+            </v-card>
           </v-col>
         </v-row>
 
@@ -362,6 +404,43 @@ function resetForm() {
             </v-col>
           </v-row>
         </v-container>
+
+        <v-container class="mt-8">
+          <h2 class="text-h5 font-weight-bold ml-4 mb-4">GESTIONAR PRODUCTOS (BASE DE DATOS):</h2>
+          <v-card elevation="3">
+            <v-table>
+              <thead>
+                <tr>
+                  <th class="text-left">ID</th>
+                  <th class="text-left">Imagen</th>
+                  <th class="text-left">Nombre</th>
+                  <th class="text-left">Precio</th>
+                  <th class="text-left">Stock</th>
+                  <th class="text-left">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in dbProducts" :key="item.id">
+                  <td>{{ item.id }}</td>
+                  <td>
+                    <v-img :src="item.image" width="50" height="50" cover v-if="item.image && !item.image.startsWith('mdi-')"></v-img>
+                    <v-icon v-else>{{ item.image || 'mdi-package-variant' }}</v-icon>
+                  </td>
+                  <td>{{ item.name }}</td>
+                  <td>${{ item.price }}</td>
+                  <td>{{ item.stock }}</td>
+                  <td>
+                    <v-btn icon="mdi-delete" color="error" variant="text" @click="deleteProduct(item.id)"></v-btn>
+                  </td>
+                </tr>
+                <tr v-if="dbProducts.length === 0">
+                  <td colspan="6" class="text-center py-4">No hay productos en la base de datos</td>
+                </tr>
+              </tbody>
+            </v-table>
+          </v-card>
+        </v-container>
+
       </v-container>
     </v-main>
 

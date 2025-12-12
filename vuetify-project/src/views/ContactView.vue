@@ -49,7 +49,7 @@ const submitForm = () => {
           </v-avatar>
           <div>
             <div class="font-weight-bold">Nuestra Oficina</div>
-            <div class="text-grey-darken-1">Avenida Las Torres N°55, Buenos Aires, Argentina</div>
+            <div class="text-grey-darken-1">Avenida Las Torres N°003, Santiago, Chile</div>
           </div>
         </div>
 
@@ -59,7 +59,7 @@ const submitForm = () => {
           </v-avatar>
           <div>
             <div class="font-weight-bold">Teléfono</div>
-            <div class="text-grey-darken-1">+54 9 11 1234 5678</div>
+            <div class="text-grey-darken-1">+56 2 11 1234 5678</div>
           </div>
         </div>
 

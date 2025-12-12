@@ -20,6 +20,7 @@ declare module 'vue' {
     LoginDialog: typeof import('./src/components/LoginDialog.vue')['default']
     Navbar: typeof import('./src/components/Navbar.vue')['default']
     PanelAdmin: typeof import('./src/components/PanelAdmin.vue')['default']
+    PaymentGateway: typeof import('./src/components/PaymentGateway.vue')['default']
     ProductCarousel: typeof import('./src/components/ProductCarousel.vue')['default']
     ProductSection: typeof import('./src/components/ProductSection.vue')['default']
     RegisterDialog: typeof import('./src/components/RegisterDialog.vue')['default']

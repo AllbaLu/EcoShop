@@ -5,7 +5,7 @@ export const products = ref([
       {
     id: 1,
     name: "Pelota Fetch",
-    price: 7.99,
+    price: 7990,
     rating: 3.5,
     image: new URL('@/assets/productos/becopets1.webp', import.meta.url).href,
 
@@ -68,7 +68,7 @@ export const products = ref([
   {
     id: 2,
     name: "Slinger Pebble",
-    price: 12.99,
+    price: 12990,
     rating: 4.5, // juego interactivo muy valorado
     image: new URL('@/assets/productos/becopets2.webp', import.meta.url).href,
 
@@ -134,7 +134,7 @@ export const products = ref([
   {
     id: 3,
     name: "Treat Bone",
-    price: 10.99,
+    price: 10990,
     rating: 5.0, // excelente para masticadores fuertes
     image: new URL('@/assets/productos/becopets3.webp', import.meta.url).href,
 
@@ -194,7 +194,7 @@ export const products = ref([
   {
     id: 4,
     name: "Arena para gatitos",
-    price: 6.95,
+    price: 6990,
     rating: 4.5,
     image: new URL('@/assets/productos/sanicat1.png', import.meta.url).href,
 
@@ -248,7 +248,7 @@ export const products = ref([
   {
     id: 5,
     name: "Arena para gatos Advanced Hygiene sin fragancia",
-    price: 6.95,
+    price: 6990,
     rating: 4.0,
     image: new URL('@/assets/productos/sanicat2.jpg', import.meta.url).href,
 
@@ -297,7 +297,7 @@ export const products = ref([
   {
     id: 6,
     name: "Sanicat Diamonds - Aroma Aloe Vera",
-    price: 6.00,
+    price: 5990,
     rating: 4.3,
     image: new URL('@/assets/productos/sanicat3.png', import.meta.url).href,
 
@@ -346,7 +346,7 @@ export const products = ref([
   {
     id: 7,
     name: "Lima de uñas de diamante Safari",
-    price: 6.20,
+    price: 6200,
     rating: 4.5,
     image: new URL('@/assets/productos/iherb1.avif', import.meta.url).href,
 
@@ -387,7 +387,7 @@ export const products = ref([
   {
     id: 8,
     name: "Cortauñas de acero inoxidable Safari",
-    price: 9.40,
+    price: 9400,
     rating: 4.5,
     image: new URL('@/assets/productos/iherb2.avif', import.meta.url).href,
 
@@ -426,7 +426,7 @@ export const products = ref([
   {
     id: 9,
     name: "Cepillo suave y liso Safari",
-    price: 9.40,
+    price: 9400,
     rating: 4.5,
     image: new URL('@/assets/productos/iherb3.avif', import.meta.url).href,
 
@@ -467,7 +467,7 @@ export const products = ref([
   {
     id: 10,
     name: "Ecos - Quitamanchas y quita olores, limón",
-    price: 10.30,
+    price: 10300,
     rating: 4.6,
     image: new URL('@/assets/productos/iherb4.avif', import.meta.url).href,
 
@@ -509,7 +509,7 @@ export const products = ref([
   {
     id: 11,
     name: "Earth Rated - Bolsas para desechos de perros, sin fragancia",
-    price: 10.30,
+    price: 10300,
     rating: 4.6,
     image: new URL('@/assets/productos/iherb5.avif', import.meta.url).href,
 
@@ -549,7 +549,7 @@ export const products = ref([
   {
     id: 12,
     name: "Peanuts - Bolsas para desechos de perros, Naranja",
-    price: 10.30,
+    price: 10300,
     rating: 4.6,
     image: new URL('@/assets/productos/iherb6.avif', import.meta.url).href,
 
@@ -606,7 +606,7 @@ export const products = ref([
   {
     id: 13,
     name: "Peanuts - Dispensador de bolsas, Verde",
-    price: 6.62,
+    price: 6600,
     rating: 4.6,
     image: new URL('@/assets/productos/iherb7.avif', import.meta.url).href,
 
@@ -664,7 +664,7 @@ export const products = ref([
   {
     id: 14,
     name: "Super Beef",
-    price: 10.39,
+    price: 10390,
     rating: 4.9,
     image: new URL('@/assets/productos/stellas1.webp', import.meta.url).href,
 
@@ -725,7 +725,7 @@ export const products = ref([
   {
     id: 15,
     name: "Alimento Seco para Perros con Granos Ancestrales",
-    price: 44.84,
+    price: 44990,
     rating: 4.9,
     image: new URL('@/assets/productos/stellas2.webp', import.meta.url).href,
 
@@ -783,7 +783,7 @@ export const products = ref([
   {
     id: 16,
     name: "Toppers Liofilizados para Perros",
-    price: 14.94,
+    price: 14990,
     rating: 4.9,
     image: new URL('@/assets/productos/stellas3.webp', import.meta.url).href,
 
@@ -845,7 +845,7 @@ export const products = ref([
   {
     id: 17,
     name: "Alimento Seco Crudo para Gatos",
-    price: 33.14,
+    price: 33990,
     rating: 4.7,
     image: new URL('@/assets/productos/stellas4.webp', import.meta.url).href,
 
@@ -906,7 +906,7 @@ export const products = ref([
   {
     id: 18,
     name: "Alimento Liofilizado sin Granos para Gatos – Conejo",
-    price: 13.99,
+    price: 13990,
     rating: 4.9,
     image: new URL('@/assets/productos/stellas5.webp', import.meta.url).href,
 
@@ -964,7 +964,7 @@ export const products = ref([
   {
     id: 19,
     name: "Alimento Húmedo Desmenuzado para Gatos – Pollo y Res",
-    price: 27.92,
+    price: 27990,
     rating: 5.0,
     image: new URL('@/assets/productos/stellas6.webp', import.meta.url).href,
 
@@ -1025,7 +1025,7 @@ export const products = ref([
   {
     id: 20,
     name: "Tazón Gusto 1,300 ml Aquarelle",
-    price: 21.00,
+    price: 21000,
     rating: 4.6,
     image: new URL('@/assets/productos/moderna1.jpeg', import.meta.url).href,
 
@@ -1077,7 +1077,7 @@ export const products = ref([
   {
     id: 21,
     name: "Tazón Sensibowl 2x700ml Verde Oliva",
-    price: 22.00,
+    price: 22000,
     rating: 4.6,
     image: new URL('@/assets/productos/moderna2.jpeg', import.meta.url).href,
 
@@ -1131,7 +1131,7 @@ export const products = ref([
   {
     id: 22,
     name: "Dispensador Smart Sancker Jumbo 1,300 ml Verde Claro",
-    price: 30.00,
+    price: 30000,
     rating: 4.3,
     image: new URL('@/assets/productos/moderna3.jpeg', import.meta.url).href,
 
@@ -1183,7 +1183,7 @@ export const products = ref([
   {
     id: 23,
     name: "Caja de Arena Smart Cat Coral",
-    price: 27.00,
+    price: 27000,
     rating: 4.7,
     image: new URL('@/assets/productos/moderna4.jpeg', import.meta.url).href,
 
@@ -1236,7 +1236,7 @@ export const products = ref([
   {
     id: 24,
     name: "Rejilla Scoopy Pequeña Azul Marino",
-    price: 14.00,
+    price: 14000,
     rating: 4.2,
     image: new URL('@/assets/productos/moderna5.jpeg', import.meta.url).href,
 
@@ -1286,7 +1286,7 @@ export const products = ref([
     ],
 
     recommendations: [2, 3]
-  },
+  }
 ])
 
 export function getProductById(id) {

@@ -1,4 +1,37 @@
 <script setup>   
+import { ref } from 'vue';
+import { products } from '@/data/products.js';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+const showDialog = ref(false);
+const selectedSelloTitle = ref('');
+const filteredProducts = ref([]);
+
+function openRelatedProducts(selloTitle) {
+  selectedSelloTitle.value = selloTitle;
+  filteredProducts.value = products.value.filter(p => 
+    p.certifications && p.certifications.includes(selloTitle)
+  );
+  showDialog.value = true;
+}
+
+function goToProduct(product) {
+  // Navegar a la vista de detalle del producto (o abrir modal si prefieres, pero navegación es estándar)
+  // Como ProductSection maneja un modal, podríamos navegar a ProductSection con un parámetro, 
+  // pero lo más simple es ir a una página de detalle si existe, o simplemente cerrar este modal.
+  // Dado que la ruta /product/:id existe en router/index.js:
+  router.push({ name: 'ProductDetail', params: { id: product.id } });
+}
+
+function formatCLP(value) {
+  return new Intl.NumberFormat('es-CL', {
+    style: 'currency',
+    currency: 'CLP',
+    maximumFractionDigits: 0,
+  }).format(value);
+}
 
 const props = defineProps({
   //  Define any props if needed in the future
@@ -120,7 +153,13 @@ const sellos = [
           <v-card-text class="text-body-2 mb-4 text-justify px-2">{{ sello.description }}</v-card-text>
           
           <v-card-actions class="px-4 pb-4 mt-auto">
-            <v-btn color="primary" variant="flat" block class="mb-2">
+            <v-btn 
+              color="primary" 
+              variant="flat" 
+              block 
+              class="mb-2"
+              @click="openRelatedProducts(sello.title)"
+            >
               Mostrar productos relacionados
             </v-btn>
             <v-btn color="secondary" variant="outlined" block>
@@ -131,6 +170,67 @@ const sellos = [
       </v-col>
     </v-row>
   </v-container>
+
+  <!-- Modal de Productos Relacionados -->
+  <v-dialog v-model="showDialog" max-width="900" scrollable>
+    <v-card>
+      <v-card-title class="d-flex justify-space-between align-center pa-4 bg-primary text-white">
+        <span class="text-h6 font-weight-bold text-wrap">
+          Productos con certificación: {{ selectedSelloTitle }}
+        </span>
+        <v-btn icon="mdi-close" variant="text" color="white" @click="showDialog = false"></v-btn>
+      </v-card-title>
+
+      <v-card-text class="pa-4 bg-grey-lighten-5">
+        <v-container v-if="filteredProducts.length > 0">
+          <v-row>
+            <v-col
+              v-for="product in filteredProducts"
+              :key="product.id"
+              cols="12"
+              sm="6"
+              md="4"
+            >
+              <v-card 
+                flat 
+                class="h-100 cursor-pointer product-card-hover" 
+                @click="goToProduct(product)"
+                elevation="2"
+              >
+                <v-sheet height="200" class="d-flex align-center justify-center pa-2 position-relative">
+                  <img 
+                    v-if="!product.image.startsWith('mdi-')" 
+                    :src="product.image" 
+                    :alt="product.name" 
+                    class="w-100 h-100" 
+                    style="object-fit: contain;" 
+                  />
+                  <v-icon v-else :icon="product.image" size="80" color="grey"></v-icon>
+                </v-sheet>
+                
+                <v-card-text class="pt-2">
+                  <div class="text-subtitle-1 font-weight-bold text-truncate mb-1">{{ product.name }}</div>
+                  <div class="text-h6 text-primary font-weight-bold">{{ formatCLP(product.price) }}</div>
+                </v-card-text>
+                
+                <v-card-actions>
+                  <v-btn block color="primary" variant="tonal" size="small">
+                    Ver Detalle
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-container>
+        
+        <div v-else class="text-center py-10">
+          <v-icon size="64" color="grey-lighten-1" class="mb-4">mdi-leaf-off</v-icon>
+          <h3 class="text-h6 text-grey-darken-1">No hay productos con este sello por el momento.</h3>
+          <p class="text-body-2 text-grey">Estamos trabajando para ampliar nuestro catálogo sostenible.</p>
+        </div>
+      </v-card-text>
+    </v-card>
+  </v-dialog>
 
 </template>
 

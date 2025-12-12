@@ -1,6 +1,6 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue'
-import { useRouter } from 'vue-router' // Para navegar
+import { ref, onMounted, onActivated, computed } from 'vue'
+import { useRouter, onBeforeRouteUpdate } from 'vue-router' // Para navegar y refrescar en visitas
 import api from '@/api'
 import { products as staticProducts } from '@/data/products'
 
@@ -17,16 +17,27 @@ const currentSlide = ref(0)
 const loading = ref(false)
 
 // ... (Tu función loadProducts sigue IGUAL) ...
+function shuffle(arr) {
+  // Fisher–Yates
+  const a = [...arr]
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[a[i], a[j]] = [a[j], a[i]]
+  }
+  return a
+}
+
 async function loadProducts() {
   loading.value = true
   try {
-    const response = await api.get('/product-section')
-    const productsFromDB = response.data || []
-    const allProducts = [...staticProducts.value, ...productsFromDB]
-    products.value = allProducts.slice(0, 12)
+    // Usamos el endpoint real disponible
+    const response = await api.get('/products')
+    const productsFromDB = Array.isArray(response.data) ? response.data : []
+    const mixed = shuffle([...staticProducts.value, ...productsFromDB])
+    products.value = mixed.slice(0, 8) // Máximo 8 destacados
   } catch (err) {
     console.error(err)
-    products.value = staticProducts.value.slice(0, 12)
+    products.value = shuffle(staticProducts.value).slice(0, 8)
   } finally {
     loading.value = false
   }
@@ -34,6 +45,17 @@ async function loadProducts() {
 
 onMounted(() => {
   loadProducts()
+})
+
+// Refrescar en cada visita/activación del componente
+onActivated(() => {
+  loadProducts()
+})
+
+// Si la ruta cambia a la misma vista, recarga
+onBeforeRouteUpdate((_to, _from, next) => {
+  loadProducts()
+  next()
 })
 
 const maxSlides = computed(() => Math.max(0, Math.ceil(products.value.length / 4) - 1))

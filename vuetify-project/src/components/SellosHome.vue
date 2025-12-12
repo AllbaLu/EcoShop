@@ -1,32 +1,21 @@
 <script setup>
-const sellos = [ 
-  {
-    title: 'Carbon Neutral',
-    img: new URL('@/imgs/CarbonNeutral_Logo.jpg', import.meta.url).href,
-  },
-  {
-    title: 'Fair Trade',
-    img: new URL('@/imgs/FSC_Logo.png', import.meta.url).href,
-  },
-  {
-    title: 'EU Ecolabel',
-    img: new URL('@/imgs/RainForestAlliance_Logo.png', import.meta.url).href,
-  }
-]
+import sellos from '@/data/certifications.js'
 </script>
 
 <template>
   <v-container class="my-8">
     <v-row justify="center">
-      <v-col cols="12" md="8">
+      <v-col cols="12">
         <v-card flat class="pa-8" color="grey-lighten-5" elevation="4" :class="hover">
           <v-row justify="center" align="center">
             <v-col 
               v-for="sello in sellos" 
               :key="sello.title"
-              cols="4"
-              md="4"
-              class="text-center"
+              cols="6"
+              sm="4"
+              md="3"
+              lg="2"
+              class="text-center mb-4"
             >
               <div class="sello-circle mx-auto">
                 <v-img
@@ -36,6 +25,7 @@ const sellos = [
                   class="rounded-circle"
                 ></v-img>
               </div>
+              <div class="mt-2 text-caption font-weight-bold">{{ sello.title }}</div>
             </v-col>
           </v-row>
         </v-card>

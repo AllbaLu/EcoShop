@@ -5,6 +5,7 @@ import api from '@/api';
 import { useFilterStore } from '@/stores/useFilterStore';
 import { useRouter } from 'vue-router';
 import sellos from '@/data/certifications.js'
+import { products as sharedProducts } from '@/data/products.js';
 const router = useRouter();
 
 const cart = useCartStore();
@@ -43,7 +44,7 @@ const productsStatic = [
   {
     id: 1,
     name: "Pelota Fetch",
-    price: 7.99,
+    price: 7990,
     rating: 3.5,
     image: new URL('@/assets/productos/becopets1.webp', import.meta.url).href,
 
@@ -106,7 +107,7 @@ const productsStatic = [
   {
     id: 2,
     name: "Slinger Pebble",
-    price: 12.99,
+    price: 12990,
     rating: 4.5, // juego interactivo muy valorado
     image: new URL('@/assets/productos/becopets2.webp', import.meta.url).href,
 
@@ -172,7 +173,7 @@ const productsStatic = [
   {
     id: 3,
     name: "Treat Bone",
-    price: 10.99,
+    price: 10990,
     rating: 5.0, // excelente para masticadores fuertes
     image: new URL('@/assets/productos/becopets3.webp', import.meta.url).href,
 
@@ -232,7 +233,7 @@ const productsStatic = [
   {
     id: 4,
     name: "Arena para gatitos",
-    price: 6.95,
+    price: 6990,
     rating: 4.5,
     image: new URL('@/assets/productos/sanicat1.png', import.meta.url).href,
 
@@ -286,7 +287,7 @@ const productsStatic = [
   {
     id: 5,
     name: "Arena para gatos Advanced Hygiene sin fragancia",
-    price: 6.95,
+    price: 6990,
     rating: 4.0,
     image: new URL('@/assets/productos/sanicat2.jpg', import.meta.url).href,
 
@@ -335,7 +336,7 @@ const productsStatic = [
   {
     id: 6,
     name: "Sanicat Diamonds - Aroma Aloe Vera",
-    price: 6.00,
+    price: 5990,
     rating: 4.3,
     image: new URL('@/assets/productos/sanicat3.png', import.meta.url).href,
 
@@ -384,7 +385,7 @@ const productsStatic = [
   {
     id: 7,
     name: "Lima de uñas de diamante Safari",
-    price: 6.20,
+    price: 6200,
     rating: 4.5,
     image: new URL('@/assets/productos/iherb1.avif', import.meta.url).href,
 
@@ -425,7 +426,7 @@ const productsStatic = [
   {
     id: 8,
     name: "Cortauñas de acero inoxidable Safari",
-    price: 9.40,
+    price: 9400,
     rating: 4.5,
     image: new URL('@/assets/productos/iherb2.avif', import.meta.url).href,
 
@@ -464,7 +465,7 @@ const productsStatic = [
   {
     id: 9,
     name: "Cepillo suave y liso Safari",
-    price: 9.40,
+    price: 9400,
     rating: 4.5,
     image: new URL('@/assets/productos/iherb3.avif', import.meta.url).href,
 
@@ -505,7 +506,7 @@ const productsStatic = [
   {
     id: 10,
     name: "Ecos - Quitamanchas y quita olores, limón",
-    price: 10.30,
+    price: 10300,
     rating: 4.6,
     image: new URL('@/assets/productos/iherb4.avif', import.meta.url).href,
 
@@ -547,7 +548,7 @@ const productsStatic = [
   {
     id: 11,
     name: "Earth Rated - Bolsas para desechos de perros, sin fragancia",
-    price: 10.30,
+    price: 10300,
     rating: 4.6,
     image: new URL('@/assets/productos/iherb5.avif', import.meta.url).href,
 
@@ -587,7 +588,7 @@ const productsStatic = [
   {
     id: 12,
     name: "Peanuts - Bolsas para desechos de perros, Naranja",
-    price: 10.30,
+    price: 10300,
     rating: 4.6,
     image: new URL('@/assets/productos/iherb6.avif', import.meta.url).href,
 
@@ -644,7 +645,7 @@ const productsStatic = [
   {
     id: 13,
     name: "Peanuts - Dispensador de bolsas, Verde",
-    price: 6.62,
+    price: 6600,
     rating: 4.6,
     image: new URL('@/assets/productos/iherb7.avif', import.meta.url).href,
 
@@ -702,7 +703,7 @@ const productsStatic = [
   {
     id: 14,
     name: "Super Beef",
-    price: 10.39,
+    price: 10390,
     rating: 4.9,
     image: new URL('@/assets/productos/stellas1.webp', import.meta.url).href,
 
@@ -763,7 +764,7 @@ const productsStatic = [
   {
     id: 15,
     name: "Alimento Seco para Perros con Granos Ancestrales",
-    price: 44.84,
+    price: 44990,
     rating: 4.9,
     image: new URL('@/assets/productos/stellas2.webp', import.meta.url).href,
 
@@ -821,7 +822,7 @@ const productsStatic = [
   {
     id: 16,
     name: "Toppers Liofilizados para Perros",
-    price: 14.94,
+    price: 14990,
     rating: 4.9,
     image: new URL('@/assets/productos/stellas3.webp', import.meta.url).href,
 
@@ -883,7 +884,7 @@ const productsStatic = [
   {
     id: 17,
     name: "Alimento Seco Crudo para Gatos",
-    price: 33.14,
+    price: 33990,
     rating: 4.7,
     image: new URL('@/assets/productos/stellas4.webp', import.meta.url).href,
 
@@ -944,7 +945,7 @@ const productsStatic = [
   {
     id: 18,
     name: "Alimento Liofilizado sin Granos para Gatos – Conejo",
-    price: 13.99,
+    price: 13990,
     rating: 4.9,
     image: new URL('@/assets/productos/stellas5.webp', import.meta.url).href,
 
@@ -1002,7 +1003,7 @@ const productsStatic = [
   {
     id: 19,
     name: "Alimento Húmedo Desmenuzado para Gatos – Pollo y Res",
-    price: 27.92,
+    price: 27990,
     rating: 5.0,
     image: new URL('@/assets/productos/stellas6.webp', import.meta.url).href,
 
@@ -1063,7 +1064,7 @@ const productsStatic = [
   {
     id: 20,
     name: "Tazón Gusto 1,300 ml Aquarelle",
-    price: 21.00,
+    price: 21000,
     rating: 4.6,
     image: new URL('@/assets/productos/moderna1.jpeg', import.meta.url).href,
 
@@ -1115,7 +1116,7 @@ const productsStatic = [
   {
     id: 21,
     name: "Tazón Sensibowl 2x700ml Verde Oliva",
-    price: 22.00,
+    price: 22000,
     rating: 4.6,
     image: new URL('@/assets/productos/moderna2.jpeg', import.meta.url).href,
 
@@ -1169,7 +1170,7 @@ const productsStatic = [
   {
     id: 22,
     name: "Dispensador Smart Sancker Jumbo 1,300 ml Verde Claro",
-    price: 30.00,
+    price: 30000,
     rating: 4.3,
     image: new URL('@/assets/productos/moderna3.jpeg', import.meta.url).href,
 
@@ -1221,7 +1222,7 @@ const productsStatic = [
   {
     id: 23,
     name: "Caja de Arena Smart Cat Coral",
-    price: 27.00,
+    price: 27000,
     rating: 4.7,
     image: new URL('@/assets/productos/moderna4.jpeg', import.meta.url).href,
 
@@ -1274,7 +1275,7 @@ const productsStatic = [
   {
     id: 24,
     name: "Rejilla Scoopy Pequeña Azul Marino",
-    price: 14.00,
+    price: 14000,
     rating: 4.2,
     image: new URL('@/assets/productos/moderna5.jpeg', import.meta.url).href,
 
@@ -1332,6 +1333,23 @@ const products = ref([]);
 const loading = ref(false);
 const error = ref('');
 
+// Paginación (máximo 15 por página)
+const page = ref(1);
+const perPage = 15;
+
+// Formateo CLP sin decimales
+function formatCLP(value) {
+  try {
+    return new Intl.NumberFormat('es-CL', {
+      style: 'currency',
+      currency: 'CLP',
+      maximumFractionDigits: 0,
+    }).format(Number(value) || 0);
+  } catch {
+    return `$${Math.round(Number(value) || 0).toLocaleString('es-CL')}`;
+  }
+}
+
 // Cargar productos desde el backend y combinarlos con los estáticos
 async function loadProducts() {
   loading.value = true;
@@ -1350,16 +1368,16 @@ async function loadProducts() {
     }));
     
     // Combinar ambos arrays: estáticos primero, luego los de BD
-    products.value = [...productsStatic, ...adjustedDBProducts];
+    products.value = [...sharedProducts.value, ...adjustedDBProducts];
     
     console.log('Productos cargados:', products.value.length, 'total');
-    console.log('- Estáticos:', productsStatic.length);
+    console.log('- Estáticos:', sharedProducts.value.length);
     console.log('- Base de datos:', productsFromDB.length);
   } catch (err) {
     // En caso de error, usar solo productos estáticos
     error.value = 'Usando solo productos de ejemplo (error al conectar con BD)';
     console.log('Error al cargar productos del backend, usando solo estáticos:', err);
-    products.value = productsStatic;
+    products.value = sharedProducts.value;
   } finally {
     loading.value = false;
   }
@@ -1399,6 +1417,12 @@ const filteredProducts = computed(() => {
   return result;
 });
 
+const totalPages = computed(() => Math.max(1, Math.ceil(filteredProducts.value.length / perPage)));
+const paginatedProducts = computed(() => {
+  const start = (page.value - 1) * perPage;
+  return filteredProducts.value.slice(start, start + perPage);
+});
+
 onMounted(() => {
   if (filterStore.productToOpen) {
     selectedProduct.value = filterStore.productToOpen;
@@ -1426,7 +1450,32 @@ const addToCart = (p) => {
 };
 
 // Recomendaciones
-const getRecommendations = (ids) => (!ids ? [] : products.value.filter(p => ids.includes(p.id)));
+const getRecommendations = (product) => {
+  if (!product) return [];
+  
+  // Filter out the current product
+  let candidates = products.value.filter(p => p.id !== product.id);
+  
+  // Calculate score based on matching tags
+  const scored = candidates.map(p => {
+    let score = 0;
+    if (product.tags && p.tags) {
+      const intersection = p.tags.filter(t => product.tags.includes(t));
+      score = intersection.length;
+    }
+    // Boost if category/type matches (heuristic: first tag often indicates category)
+    if (product.tags?.[0] && p.tags?.[0] === product.tags[0]) {
+      score += 1;
+    }
+    return { product: p, score };
+  });
+  
+  // Sort by score desc
+  scored.sort((a, b) => b.score - a.score);
+  
+  // Take top 4
+  return scored.slice(0, 4).map(item => item.product);
+};
 
 // SELLOS CERTIFICACIONES
 
@@ -1523,7 +1572,7 @@ function goToSellos() {
 
           <v-col cols="12" md="3">
             <h4 class="text-subtitle-2 font-weight-bold mb-2">Rango de Precio</h4>
-            <div class="text-caption mb-1">${{ filterStore.priceRange[0] }} - ${{ filterStore.priceRange[1] }}</div>
+            <div class="text-caption mb-1">{{ formatCLP(filterStore.priceRange[0]) }} - {{ formatCLP(filterStore.priceRange[1]) }}</div>
             <v-range-slider v-model="filterStore.priceRange" max="100000" min="0" step="500" thumb-size="14"
               track-color="grey-lighten-2" track-fill-color="forest" thumb-color="forest" hide-details></v-range-slider>
           </v-col>
@@ -1568,7 +1617,7 @@ function goToSellos() {
 
     <!-- LISTADO DE CARDS -->
     <v-row>
-      <v-col v-for="product in filteredProducts" :key="product.id" cols="12" sm="6" md="4" xl="3">
+      <v-col v-for="product in paginatedProducts" :key="product.id" cols="12" sm="6" md="4" lg="4" xl="4">
         <v-card flat class="product-card cursor-pointer h-100 d-flex flex-column" @click="openProductDetail(product)"
           role="button" tabindex="0" :aria-label="`Ver detalles del producto ${product.name}`">
           <v-sheet color="grey-lighten-4" height="280"
@@ -1583,7 +1632,7 @@ function goToSellos() {
           <div class="px-1 pb-2 flex-grow-1">
             <div class="text-body-1 font-weight-medium text-truncate">{{ product.name }}</div>
             <div class="d-flex justify-space-between align-center mt-2">
-              <span class="text-body-2 font-weight-bold">${{ product.price.toFixed(2) }}</span>
+              <span class="text-body-2 font-weight-bold">{{ formatCLP(product.price) }}</span>
               <div class="d-flex align-center">
                 <v-icon v-for="(badgeColor, i) in product.ecoBadges" :key="i" icon="mdi-circle" size="x-small"
                   :color="badgeColor" class="ml-1"></v-icon>
@@ -1604,6 +1653,13 @@ function goToSellos() {
     <v-row v-if="filteredProducts.length === 0">
       <v-col class="text-center py-10 text-grey">
         No se encontraron productos con esos filtros.
+      </v-col>
+    </v-row>
+
+    <!-- Paginación -->
+    <v-row v-if="filteredProducts.length > 0">
+      <v-col cols="12" class="d-flex justify-center mt-6">
+        <v-pagination v-model="page" :length="totalPages" rounded density="comfortable" color="forest" />
       </v-col>
     </v-row>
 
@@ -1634,7 +1690,7 @@ function goToSellos() {
 
                 <!-- Precio + Rating -->
                 <div class="d-flex align-center mb-4">
-                  <span class="text-h5 font-weight-medium mr-4">${{ selectedProduct.price.toFixed(2) }}</span>
+                  <span class="text-h5 font-weight-medium mr-4">{{ formatCLP(selectedProduct.price) }}</span>
                   <v-rating :model-value="selectedProduct.rating" color="amber" density="compact" half-increments
                     readonly size="small"></v-rating>
                   <span class="text-caption text-grey ml-2">({{ selectedProduct.rating }})</span>
@@ -1766,19 +1822,20 @@ function goToSellos() {
 
 
 
-            <v-row class="mt-8" v-if="selectedProduct.recommendations?.length">
+            <v-row class="mt-8" v-if="getRecommendations(selectedProduct).length">
               <v-col cols="12">
                 <h3 class="text-h6 font-weight-bold mb-4">También te podría interesar</h3>
               </v-col>
-              <v-col v-for="recProd in getRecommendations(selectedProduct.recommendations)" :key="recProd.id" cols="6"
+              <v-col v-for="recProd in getRecommendations(selectedProduct)" :key="recProd.id" cols="6"
                 md="3">
                 <v-card flat class="bg-grey-lighten-5 cursor-pointer pa-2" @click="openProductDetail(recProd)"
                   role="button" :aria-label="`Ver detalles del producto recomendado ${recProd.name}`">
-                  <v-sheet height="80" color="transparent" class="d-flex align-center justify-center mb-2">
-                    <v-icon :icon="recProd.image" size="40" color="grey"></v-icon>
+                  <v-sheet height="80" color="transparent" class="d-flex align-center justify-center mb-2 overflow-hidden rounded">
+                    <img v-if="recProd.image && !recProd.image.startsWith('mdi-')" :src="recProd.image" :alt="recProd.name" class="w-100 h-100" style="object-fit: cover;">
+                    <v-icon v-else :icon="recProd.image || 'mdi-package-variant'" size="40" color="grey"></v-icon>
                   </v-sheet>
                   <div class="text-caption font-weight-bold text-truncate">{{ recProd.name }}</div>
-                  <div class="text-caption text-forest">${{ recProd.price }}</div>
+                  <div class="text-caption text-forest">{{ formatCLP(recProd.price) }}</div>
                 </v-card>
               </v-col>
             </v-row>
