@@ -7,7 +7,7 @@ import sellos from '@/data/certifications.js'
     <v-row justify="center">
       <v-col cols="12">
         <v-card flat class="pa-8" color="grey-lighten-5" elevation="4" :class="hover">
-          <v-row justify="center" align="center">
+          <v-row justify="start" align="center">
             <v-col 
               v-for="sello in sellos" 
               :key="sello.title"

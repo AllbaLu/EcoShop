@@ -21,7 +21,7 @@ const search = ref('')
     <v-row>
       <v-col cols="12">
         <h2 class="text-h4 font-weight-bold mb-2 text-center">Productos Destacados</h2>
-        <p class="text-subtitle-1 text-grey-darken-1 text-center mb-8">
+        <p class="text-subtitle-1 text-grey-darken-1 text-center mb-2">
           Descubre nuestra selección de productos sostenibles y certificados
         </p>
       </v-col>
@@ -47,7 +47,7 @@ const search = ref('')
     <v-row>
       <v-col cols="12">
         <h2 class="text-h4 font-weight-bold mb-2 text-center">Nuestras Certificaciones</h2>
-        <p class="text-subtitle-1 text-grey-darken-1 text-center mb-8">
+        <p class="text-subtitle-1 text-grey-darken-1 text-center mb-2">
           Compromiso verificado con el medio ambiente y la responsabilidad social
         </p>
       </v-col>

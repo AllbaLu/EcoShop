@@ -6,6 +6,7 @@ import { useFilterStore } from '@/stores/useFilterStore';
 import { useRouter } from 'vue-router';
 import sellos from '@/data/certifications.js'
 import { products as sharedProducts } from '@/data/products.js';
+import EcoBadge from '@/components/EcoBadge.vue'
 const router = useRouter();
 
 const cart = useCartStore();
@@ -1634,8 +1635,7 @@ function goToSellos() {
             <div class="d-flex justify-space-between align-center mt-2">
               <span class="text-body-2 font-weight-bold">{{ formatCLP(product.price) }}</span>
               <div class="d-flex align-center">
-                <v-icon v-for="(badgeColor, i) in product.ecoBadges" :key="i" icon="mdi-circle" size="x-small"
-                  :color="badgeColor" class="ml-1"></v-icon>
+                <EcoBadge :badges="product.ecoBadges" />
               </div>
             </div>
             <!-- accesible: texto oculto con tags/eco info para lectores de pantalla -->
