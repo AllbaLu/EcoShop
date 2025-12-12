@@ -10,6 +10,8 @@ const cart = useCartStore()
 const auth = useAuthStore()
 const router = useRouter()
 
+const drawer = ref(false)
+
 const showLoginDialog = ref(false)
 const showRegisterDialog = ref(false)
 
@@ -60,65 +62,76 @@ function toggleAdminRole() {
 </script>
 
 <template>
-  <v-app-bar app color="white" dark>
-    <v-toolbar-title>&lt;ECO_SHOP&gt; &lt;En prueba aún&gt;</v-toolbar-title>
-    <v-spacer />
-    <v-btn text class="bg-white" :to="{ name: 'homeview' }">Inicio</v-btn>
-    <v-btn text class="bg-white" :to="{ name: 'sellosview' }">Sellos</v-btn>
-    <v-btn text class="bg-white" :to="{ name: 'blogview' }">Blog</v-btn>
-    <v-btn text class="bg-white" :to="{ name: 'productsectionview'}">Catálogo Productos</v-btn>
-    <v-btn text class="bg-white" :to="{ name: 'contactoview' }">Contacto</v-btn>
+  <v-app-bar app color="white" dark density="default">
+    <!-- Ícono Hamburguesa en móviles -->
+    <v-app-bar-nav-icon class="d-md-none" @click="drawer = !drawer" />
 
-    <!-- DEBUG: Mostrar estado actual + botón para cambiar role temporalmente -->
-    <div v-if="isLoggedIn" class="d-flex align-center mx-2">
-      <v-btn 
-        size="small" 
-        color="warning" 
-        @click="toggleAdminRole"
-      >
+    <!-- LOGO -->
+    <v-toolbar-title class="d-flex align-center" style="min-width: 120px">
+      <v-img
+        src="@/assets/ecoshop-logo.png"
+        alt="Logo Ecoshop"
+        height="100%"
+        width="auto"
+        contain
+        class="navbar-logo"
+      />
+    </v-toolbar-title>
+
+    <v-spacer />
+
+    <!-- BOTONES GRANDES (solo escritorio) -->
+    <div class="d-none d-md-flex align-center">
+      <v-btn text class="bg-white" :to="{ name: 'homeview' }">Inicio</v-btn>
+      <v-btn text class="bg-white" :to="{ name: 'sellosview' }">Sellos</v-btn>
+      <v-btn text class="bg-white" :to="{ name: 'blogview' }">Blog</v-btn>
+      <v-btn text class="bg-white" :to="{ name: 'productsectionview'}">Catálogo</v-btn>
+      <v-btn text class="bg-white" :to="{ name: 'contactoview' }">Contacto</v-btn>
+    </div>
+
+    <!-- ADMIN TOGGLE (debug) -->
+    <div v-if="isLoggedIn" class="d-none d-md-flex align-center mx-2">
+      <v-btn size="small" color="warning" @click="toggleAdminRole">
         Toggle Admin
       </v-btn>
     </div>
 
-    <!-- Botón Panel Admin (solo si es admin logueado) -->
-    <v-btn 
+    <!-- PANEL ADMIN (solo admin) -->
+    <v-btn
       v-if="isLoggedIn && isAdmin"
-      class="bg-accent position-relative" 
+      class="bg-accent d-none d-md-flex"
       @click="goToAdmin"
     >
       <v-icon class="mr-2">mdi-shield-account</v-icon>
       PANEL ADMIN
     </v-btn>
 
-    <!-- Botón Carrito (solo si NO es admin o no está logueado) -->
-    <v-btn 
+    <!-- CARRITO -->
+    <v-btn
       v-if="!isLoggedIn || !isAdmin"
-      class="bg-white position-relative" 
+      class="bg-white position-relative"
       @click="cart.open = true"
     >
-      <v-icon class="mr-2">mdi-cart</v-icon>
-      CARRITO
-      
+      <v-icon>mdi-cart</v-icon>
+
       <v-badge
         v-if="cart.totalQuantity > 0"
         :content="cart.totalQuantity"
         color="accent"
         class="cart-badge"
-      ></v-badge>
+      />
     </v-btn>
 
-    <!-- Botones de autenticación -->
+    <!-- LOGIN / USER MENU -->
     <template v-if="isLoggedIn">
-      <v-menu offset-y>
-        <template v-slot:activator="{ props }">
-          <v-btn
-            class="bg-secondary"
-            v-bind="props"
-          >
+      <v-menu offset-y class="d-none d-md-flex">
+        <template #activator="{ props }">
+          <v-btn class="bg-secondary" v-bind="props">
             <v-icon class="mr-2">mdi-account-circle</v-icon>
             {{ auth.user?.name || 'Usuario' }}
           </v-btn>
         </template>
+
         <v-list>
           <v-list-item @click="handleLogout">
             <v-list-item-title>
@@ -129,12 +142,40 @@ function toggleAdminRole() {
         </v-list>
       </v-menu>
     </template>
-    
+
     <template v-else>
-      <v-btn outlined class="bg-secondary" @click="openLogin">Log in</v-btn>
-      <v-btn class="bg-secondary" @click="openRegister">Register</v-btn>
+      <v-btn outlined class="bg-secondary d-none d-md-flex" @click="openLogin">Log in</v-btn>
+      <v-btn class="bg-secondary d-none d-md-flex" @click="openRegister">Register</v-btn>
     </template>
   </v-app-bar>
+
+  <!-- DRAWER PARA CELULARES -->
+  <v-navigation-drawer v-model="drawer" temporary class="d-md-none">
+    <v-list nav>
+      <v-list-item :to="{ name: 'homeview' }">Inicio</v-list-item>
+      <v-list-item :to="{ name: 'sellosview' }">Sellos</v-list-item>
+      <v-list-item :to="{ name: 'blogview' }">Blog</v-list-item>
+      <v-list-item :to="{ name: 'productsectionview' }">Catálogo</v-list-item>
+      <v-list-item :to="{ name: 'contactoview' }">Contacto</v-list-item>
+
+      <v-divider class="my-3"></v-divider>
+
+      <v-list-item v-if="isLoggedIn && isAdmin" @click="goToAdmin">
+        <v-icon class="mr-2">mdi-shield-account</v-icon>
+        Panel Admin
+      </v-list-item>
+
+      <v-list-item v-if="isLoggedIn" @click="handleLogout">
+        <v-icon class="mr-2">mdi-logout</v-icon>
+        Cerrar Sesión
+      </v-list-item>
+
+      <template v-else>
+        <v-list-item @click="openLogin">Log In</v-list-item>
+        <v-list-item @click="openRegister">Registrarse</v-list-item>
+      </template>
+    </v-list>
+  </v-navigation-drawer>
 
   <!-- Dialogs -->
   <LoginDialog v-model="showLoginDialog" />
@@ -144,6 +185,14 @@ function toggleAdminRole() {
 
 
 <style scoped>
+.navbar-logo {
+  height: 100%;        /* Ocupar toda la altura del navbar */
+  max-height: 64px;    /* Controla el límite según tu navbar */
+  width: auto;         /* Mantiene proporción */
+  object-fit: contain; /* Evita que se corte */
+  display: block;
+}
+
 .v-btn {
   margin-left: 8px;
 }

@@ -15,6 +15,7 @@ declare module 'vue' {
     BlogPost: typeof import('./src/components/BlogPost.vue')['default']
     BlogPostHome: typeof import('./src/components/BlogPostHome.vue')['default']
     CartDrawer: typeof import('./src/components/CartDrawer.vue')['default']
+    EcoBadge: typeof import('./src/components/EcoBadge.vue')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']
     Hero: typeof import('./src/components/Hero.vue')['default']
     LoginDialog: typeof import('./src/components/LoginDialog.vue')['default']
@@ -30,5 +31,6 @@ declare module 'vue' {
     Sellos: typeof import('./src/components/Sellos.vue')['default']
     SellosHome: typeof import('./src/components/SellosHome.vue')['default']
     SiteFooter: typeof import('./src/components/SiteFooter.vue')['default']
+    TEMP: typeof import('./src/components/EcoBadge.vue')['default']
   }
 }

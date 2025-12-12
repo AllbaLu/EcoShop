@@ -84,7 +84,6 @@ const goToDetail = (product) => {
   <v-container class="my-8">
     <v-row>
       <v-col cols="12">
-        <h2 class="text-h4 font-weight-bold text-center mb-6 text-forest">Destacados</h2>
         
         <div class="carousel-container position-relative">
           <v-btn icon size="large" color="primary" class="carousel-btn carousel-btn-prev" @click="prevSlide" :disabled="currentSlide === 0" elevation="2">
