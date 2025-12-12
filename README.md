@@ -1,10 +1,57 @@
 # 🌿 EcoShop E-commerce Platform
-
 **Plataforma de comercio electrónico sostenible con trazabilidad de impacto ambiental.**
 
+Descripción general
+Plataforma de e-commerce sostenible que integra indicadores de impacto ambiental por producto (huella de carbono, materiales reciclables, transporte, etc.), fomenta la trazabilidad y ofrece una experiencia de usuario fluida y moderna.
+Está hecha para aquellas marcas sostenibles que buscan plataformas de e-commerce que no solo vendan productos, sino que también midan, visualicen y comuniquen el impacto ambiental de cada compra.EcoShop E-commerce Platform es una tienda online ecológica, con un enfoque educativo y transparente, que busca fortalecer la confianza de los consumidores y promover decisiones de compra responsables.
 EcoShop es una solución de e-commerce diseñada para marcas conscientes que buscan no solo vender productos, sino educar y comunicar el impacto ambiental de cada compra. La plataforma integra indicadores de huella de carbono, certificaciones ecológicas y un sistema de gestión transparente.
 
 ---
+Estructura del proyecto
+
+backend/
+   ├── src/
+   │   ├── models/
+   │   ├── routes/
+   │   ├── middlewares/
+   │   └── app.py
+   ├── config/
+   ├── tests/
+   └── requirements.txt
+
+frontend/
+   src/
+   │
+   ├── assets/ # Imágenes, iconos, fondos
+   ├── components/ # Componentes reutilizables
+   │ ├── Navbar.vue
+   │ ├── Footer.vue
+   │ ├── CartDrawer.vue
+   │ ├── BlogPost.vue
+   │ └── ...
+   │
+   ├── views/ # Vistas principales
+   │ ├── HomeView.vue
+   │ ├── BlogView.vue
+   │ ├── BlogDetailView.vue
+   │ ├── SellosView.vue
+   │ ├── ProductSectionView.vue
+   │ └── ProductDetailView.vue
+   │
+   ├── stores/ # Pinia stores
+   │ ├── useCartStore.js
+   │ └── auth.js
+   │
+   ├── plugins/
+   │ ├── vuetify.js # Configuración del tema EcoShop
+   │ └── index.js # Registro de plugins
+   │
+   ├── router/
+   │ └── index.js # Configuración de rutas
+   │
+   ├── App.vue
+   └── main.js
+
 
 ## 🚀 Características Principales
 
@@ -48,6 +95,34 @@ EcoShop es una solución de e-commerce diseñada para marcas conscientes que bus
 - **Migraciones**: Flask-Migrate
 
 ---
+### Tema personalizado
+EcoShop utiliza un tema propio, que se carga automáticamente mediante vuetify.js, basado en colores inspirados en naturaleza y sostenibilidad:
+
+background: #F1FFFF - Azul muy pálido para fondo general
+surface: #FFFFFF - Blanco puro para tarjetas
+primary: #375A0A - Verde Bosque para botones principales y Headers
+secondary: #C8E8FF - Azul Cielo para botones secundarios e iconos
+accent: #E6EB51 - Lima para ofertas, badges y Call to Action
+info: #010101 - Negro para textos
+
+### Rutas principales (Vue Router)
+Ruta	Vista	Descripción
+/   HomeView	Página principal con slider hero
+/blog	BlogView	Listado de artículos
+/blogdetail/:id	BlogDetailView	Vista de blog individual
+/sellos	SellosView	Información de certificaciones sostenibles
+/product-section	ProductSectionView	Listado de productos
+/product/:id	ProductDetailView	Ficha completa de producto
+
+### Componentes
+Navbar + Drawer del carrito
+Incluye badge dinámico con cantidad total de productos
+Carrusel Hero (Home)
+Con autoplay accesible
+Botón de pausar/reproducir
+Overlays dinámicos según cada slide
+Flechas visibles al interactuar (hover/touch)
+Accesibilidad
 
 ## 📖 Manual de Instalación y Ejecución
 
@@ -125,32 +200,6 @@ npm run dev
 4. **Gestión**:
    - Usa el formulario para cargar nuevos productos (imágenes vía URL o MDI icons).
    - En la lista inferior, puedes eliminar productos creados (los productos estáticos de demostración no se pueden borrar desde el panel).
-
----
-
-## 📂 Estructura del Proyecto
-
-```
-EcoShop/
-├── backend/                 # API REST Flask
-│   ├── app/
-│   │   ├── models.py        # Modelos de Base de Datos (User, Product)
-│   │   ├── routes.py        # Endpoints de la API
-│   │   └── ...
-│   ├── scripts/             # Scripts de utilidad (create_admin.py)
-│   └── ecoshop.db           # Base de datos SQLite
-│
-├── vuetify-project/         # Aplicación Vue.js
-│   ├── src/
-│   │   ├── api.js           # Configuración Axios
-│   │   ├── components/      # Componentes (Hero, ProductSection, PanelAdmin...)
-│   │   ├── data/            # Datos estáticos (products.js, certifications.js)
-│   │   ├── stores/          # Estado Pinia (auth, cart, filter)
-│   │   ├── views/           # Vistas (Home, ProductDetail, Admin...)
-│   │   └── ...
-│   └── ...
-└── README.md                # Documentación
-```
 
 ---
 
