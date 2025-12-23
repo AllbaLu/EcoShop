@@ -31,6 +31,5 @@ declare module 'vue' {
     Sellos: typeof import('./src/components/Sellos.vue')['default']
     SellosHome: typeof import('./src/components/SellosHome.vue')['default']
     SiteFooter: typeof import('./src/components/SiteFooter.vue')['default']
-    TEMP: typeof import('./src/components/EcoBadge.vue')['default']
   }
 }
